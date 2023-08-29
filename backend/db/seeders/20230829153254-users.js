@@ -16,25 +16,29 @@ module.exports = {
         firstName: 'John',
         lastName: 'Doe',
         email: 'john@email.com',
-        password: bcrypt.hashSync('password123', 13)
+        password: bcrypt.hashSync('password123', 13),
+        employee: false
       },
       {// 2
         firstName: 'Jane',
         lastName: 'Smith',
         email: 'jane@email.com',
-        password: bcrypt.hashSync('secure456', 13)
+        password: bcrypt.hashSync('secure456', 13),
+        employee: false
       },
       {// 3
         firstName: 'Michael',
         lastName: 'Johnson',
         email: 'michael@email.com',
-        password: bcrypt.hashSync('pass123word', 13)
+        password: bcrypt.hashSync('pass123word', 13),
+        employee: false
       },
       {// 4
         firstName: 'Emily',
         lastName: 'Williams',
         email: 'emily@email.com',
-        password: bcrypt.hashSync('strongpass789', 13)
+        password: bcrypt.hashSync('strongpass789', 13),
+        employee: true
       },
       {// 5
         firstName: 'David',
