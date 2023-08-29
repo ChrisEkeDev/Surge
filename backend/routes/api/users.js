@@ -26,10 +26,17 @@ router.post('/', validateSignUp, async(req, res) => {
 
     await setTokenCookie(res, user);
 
+    const safeUser = {
+        id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email
+    }
+
     return res.status(200).json({
         status: 200,
         message: "Sign up successful",
-        data: user,
+        data: safeUser,
     })
 
 })

@@ -11,32 +11,38 @@ const { handleValidationErrors } = require('../../utils/validation');
 
 // Sign In
 const validateSignIn = [
-    check('email').exists({ checkFalsy: true }).isEmail().notEmpty().withMessage('Please provide a valid email or username.'),
+    check('email').exists({ checkFalsy: true }).isEmail().withMessage('Please provide a valid email.'),
     check('password').exists({ checkFalsy: true }).withMessage('Please provide a password.'),
     handleValidationErrors
   ];
 
-router.post("/", validateSignIn, async(req, Keres, next) => {
+router.post("/", validateSignIn, async(req, res, next) => {
     const { email, password } = req.body;
 
-    const user  = await User.findOne({
+    const user  = await User.unscoped().findOne({
         where: { email: email }
     })
 
     if (!user || !bcrypt.compareSync(password, user.password.toString())) {
-        const err = new Error('Login failed');
+        const err = new Error('The provided credentials were invalid.');
         err.status = 401;
-        err.title = 'Login failed';
-        err.errors = { email: 'The provided credentials were invalid.' };
-        return  next();
+        err.title = 'Login failed.';
+        return  next(err);
     }
 
     await setTokenCookie(res, user)
 
+    const safeUser = {
+        id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email
+    }
+
     return res.status(200).json({
         status: 200,
         message: "Sign in successful.",
-        data: user
+        data: safeUser
     })
 })
 
@@ -52,13 +58,21 @@ router.delete("/", (_req, res) => {
 
 
 // Restore Session
-route.get("/", (req, res) => {
+router.get("/", (req, res) => {
     const { user } = req;
+
+    const safeUser = {
+        id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email
+    }
+
     if (user) {
         return res.status(200).json({
             status: 200,
             message: "Session restored successfully",
-            data: user
+            data: safeUser
         })
     } else {
         return res.status(204).json({
@@ -68,4 +82,6 @@ route.get("/", (req, res) => {
         })
     }
 })
+
+
 module.exports = router;
