@@ -8,32 +8,24 @@ if (process.env.NODE_ENV === 'production') {
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Users', {
+    await queryInterface.createTable('Chargers', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      firstName: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      lastName: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      email: {
+      key: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true
       },
-      password: {
-        type: Sequelize.STRING.BINARY,
+      identifier: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
+      name: {
+        type: Sequelize.STRING,
         allowNull: false,
-      },
-      profileImage: {
-        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
@@ -48,7 +40,7 @@ module.exports = {
     }, options);
   },
   async down(queryInterface, Sequelize) {
-    options.tableName = 'Users'
+    mapFinderOptions.tableName = 'Chargers'
     await queryInterface.dropTable(options);
   }
 };

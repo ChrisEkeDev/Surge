@@ -5,7 +5,10 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
-      // define association here
+      User.hasMany(models.Vehicles, {
+        foreignKey: 'userId',
+        sourceKey: 'id'
+      })
     }
   }
   User.init({
@@ -43,11 +46,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: true,
       defaultValue: null,
-    },
-    employee: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: false
     }
   }, {
     sequelize,
