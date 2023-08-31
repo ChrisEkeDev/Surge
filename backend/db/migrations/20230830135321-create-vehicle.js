@@ -32,6 +32,10 @@ module.exports = {
           key: 'id'
         }
       },
+      name: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
       make: {
         type: Sequelize.STRING,
         allowNull: false

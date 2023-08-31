@@ -12,6 +12,7 @@ router.get('/', requireAuth, async(req, res) => {
     const vehicles =await Vehicle.findAll({
         where: { userId: auth.id },
         include: [{
+            as: "charger",
             model: Charger
         }]
     })
@@ -32,9 +33,10 @@ const validateVehicleCreate = [
 ]
 router.post('/', requireAuth, validateVehicleCreate, async(req, res) => {
     const auth = req.user;
-    const { make, model, charger, year } = req.body;
+    const { name, make, model, charger, year } = req.body;
     const vehicle = await Vehicle.create({
         userId: auth.id,
+        name,
         chargerId: charger,
         make,
         model,

@@ -13,6 +13,7 @@ module.exports = {
       {// 1
         userId: 1,
         chargerId: 3,
+        name: 'My BMW',
         make: 'BMW',
         model: 'i4',
         year: 2023
@@ -20,6 +21,7 @@ module.exports = {
       {// 2
         userId: 2,
         chargerId: 5,
+        name: 'My Nissan',
         make: 'Nissan',
         model: 'Leaf',
         year: 2023
@@ -27,6 +29,7 @@ module.exports = {
       {// 3
         userId: 3,
         chargerId: 6,
+        name: 'My Tesla',
         make: 'Tesla',
         model: 'Model X',
         year: 2023

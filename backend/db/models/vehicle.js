@@ -10,7 +10,8 @@ module.exports = (sequelize, DataTypes) => {
         targetKey: "id"
       })
       Vehicle.hasOne(models.Charger, {
-        foreignKey: 'chargerId',
+        as: "charger",
+        foreignKey: 'id',
         sourceKey: 'id',
       })
     }
@@ -30,6 +31,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false
     },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     make: {
       type: DataTypes.STRING,
       allowNull: false
@@ -45,6 +50,11 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Vehicle',
+    defaultScope: {
+      attributes: {
+        exclude: ['createdAt', 'updatedAt']
+      }
+    },
   });
   return Vehicle;
 };

@@ -5,9 +5,9 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Charger extends Model {
     static associate(models) {
-      Charger.belongsTo(models.Vehicle, {
-        foreignKey: 'vehicleId',
-        targetKey: 'id'
+      Charger.hasMany(models.Vehicle, {
+        sourceKey: 'id',
+        foreignKey: 'id'
       })
     }
   }
