@@ -1,38 +1,65 @@
 import React from 'react'
 import { Pressable, Text,StyleSheet, View } from 'react-native';
+import { MaterialIcons } from '@expo/vector-icons';
+
 
 const StationItem = ({station, navigation}) => {
   return (
-    <Pressable onPress={() => navigation.navigate("Location", {station: station})} style={styles.stationItem}>
-        <View>
-            <Text style={styles.stationName}>{station.item.name}</Text>
-            <Text>{station.item.address}</Text>
+    <View style={styles.stationItem}>
+        <View style={styles.stationInfo}>
+            <MaterialIcons name="bolt" size={24} color="#EAC501" />
+            <View>
+              <Text style={styles.stationName}>{station.item.name}</Text>
+              <Text style={styles.stationAddress}>{station.item.address}</Text>
+            </View>
         </View>
-        <View>
-            <Text style={styles.stationDistance}>{station.item.distance} mi</Text>
-        </View>
-    </Pressable>
+        <Pressable style={styles.navigateButton}>
+          <MaterialIcons style={[styles.navigationIcon, {
+            transform: [{rotateZ: '45deg'}],
+          },]} name='navigation' size={24} color="#8490F6"/>
+          <Text style={styles.stationDistance}>{station.item.distance} mi</Text>
+        </Pressable>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
+  stationInfo: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 16,
+    gap: 5
+  },
   stationItem: {
-        borderColor: "#c4c4c4",
-        borderWidth: 1,
-        padding: 15,
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginBottom: 15,
-        borderRadius: 5
+        borderRadius: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: "rgba(255,255,255,.10)"
     },
     stationName: {
-      fontWeight: "bold"
+      fontWeight: "bold",
+      fontSize: 18,
+      color: "white"
+    },
+    stationAddress: {
+      color: "white"
+    },
+    navigateButton: {
+      height: 48,
+      aspectRatio: 1,
+      alignItems: "center",
+      justifyContent: "center"
+    },
+    navigationIcon: {
+
     },
     stationDistance: {
       fontSize: 15,
-      fontWeight: "bold"
+      fontWeight: "bold",
+      color: "white"
     }
 })
 export default StationItem;

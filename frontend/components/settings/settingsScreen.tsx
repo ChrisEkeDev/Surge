@@ -1,6 +1,7 @@
 import React from 'react';
 import { useApp } from '../../context/appContext';
 import { View, Text, StyleSheet, Pressable} from 'react-native';
+import { Feather } from '@expo/vector-icons';
 
 const SettingsScreen = ({ navigation }) => {
     const { locationsOn, setLocationsOn } = useApp();
@@ -11,13 +12,15 @@ const SettingsScreen = ({ navigation }) => {
         <View style={styles.screenContainer}>
             <Pressable onPress={() => setLocationsOn(!locationsOn)} style={styles.button}>
                 <Text>Location Services</Text>
-                <View style={styles.toggleContainer}>
-                    <View style={[styles.toggleNode, node]}></View>
+                <View>
+                    <Feather name="map-pin" size={25} color={locationsOn ? "black" : "#c4c4c4"} />
                 </View>
             </Pressable>
             <Pressable onPress={() => navigation.navigate("Profile")} style={styles.button}>
                 <Text>Profile</Text>
-                <View style={styles.iconImage}></View>
+                <View>
+                    <Feather name="user" size={25} color="black" />
+                </View>
             </Pressable>
             <Pressable style={styles.buttonPrimary}>
                 <Text style={styles.buttonPrimaryText}>Sign Out</Text>

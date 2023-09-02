@@ -28,12 +28,11 @@ const styles = StyleSheet.create({
         height: '100%',
         backgroundColor: '#fff',
         alignItems: 'center',
-        padding: 15
+        paddingHorizontal: 15
     },
     stationItem: {
-        borderColor: "#c4c4c4",
-        borderWidth: 1,
-        padding: 15,
+        paddingHorizontal: 16,
+        paddingBottom: 8,
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'row',

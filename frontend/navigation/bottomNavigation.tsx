@@ -7,12 +7,14 @@ import { CarsNavigator, StationsNavigator, SettingsNavigator } from './Navigator
 const BottomNavigation = () => {
     return (
         <Tab.Navigator
-            initialRouteName="Stations"
+            initialRouteName="Root"
             backBehavior='order'
             sceneContainerStyle={styles.container}
+
             screenOptions={{
                 tabBarStyle: styles.tabBar,
                 tabBarLabelStyle: styles.tabLabel,
+                tabBarHideOnKeyboard: true,
                 headerShown: false
             }}
             >
@@ -21,19 +23,19 @@ const BottomNavigation = () => {
                 options={{
 
                 }}
-                name='Vehicles'
+                name='VehiclesTab'
                 component={CarsNavigator}
             />
             <Tab.Screen
                 options={{
                 }}
-                name='Stations'
+                name='StationsTab'
                 component={StationsNavigator}
             />
             <Tab.Screen
                 options={{
                 }}
-                name='Settings'
+                name='SettingsTab'
                 component={SettingsNavigator}
             />
 
