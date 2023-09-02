@@ -26,19 +26,19 @@ const SettingsProfile = ({ navigation }) => {
             </View>
             </Modal>
             <View style={styles.detailItem}>
-                <Text style={styles.detailLabel}>First Name</Text>
+                <Text>First Name</Text>
                 <Text style={styles.detailInfo}>First Name</Text>
             </View>
           <View style={styles.detailItem}>
-            <Text style={styles.detailLabel}>Last Name</Text>
+            <Text>Last Name</Text>
             <Text style={styles.detailInfo}>Last Name</Text>
           </View>
           <View style={styles.detailItem}>
-            <Text style={styles.detailLabel}>Email</Text>
+            <Text>Email</Text>
             <Text style={styles.detailInfo}>Email</Text>
           </View>
           <View style={styles.detailItem}>
-            <Text style={styles.detailLabel}>Password</Text>
+            <Text>Password</Text>
             <Text style={styles.detailInfo}>Password</Text>
           </View>
           <View style={styles.buttonContainer}>
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
         alignItems: 'center',
-        padding: 24,
+        padding: 15,
         paddingBottom: 70
     },
     modalContainer: {
@@ -68,18 +68,16 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         width: '100%',
-        padding: 24
+        padding: 15
       },
     modalTitle: {
-        marginBottom: 16,
+        marginBottom: 15,
         fontWeight: 'bold'
       },
     buttonSecondary: {
         backgroundColor: "#c4c4c4",
-        paddingHorizontal: 16,
-        paddingVertical: 12,
+        padding: 15,
         borderRadius: 5,
-        marginTop: 20,
         width: '100%',
         fontWeight: 'bold',
         textAlign: 'center',
@@ -91,17 +89,19 @@ const styles = StyleSheet.create({
       },
     buttonContainer: {
         width: '100%',
+        display: "flex",
+        gap: 15
       },
     button: {
         width: '100%',
-        padding: 12,
+        padding: 15,
         borderColor: "#c4c4c4",
         borderWidth: 1,
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginBottom: 16,
+        marginBottom: 15,
         borderRadius: 5
     },
     toggleContainer: {
@@ -127,17 +127,16 @@ const styles = StyleSheet.create({
     },
     iconImage: {
         height: 40,
-        marginBottom: 16,
+        marginBottom: 15,
         aspectRatio: 1,
         backgroundColor: '#c4c4c4',
         borderRadius: 40
     },
     buttonPrimary: {
         backgroundColor: '#000',
-        paddingHorizontal: 16,
-        paddingVertical: 12,
+        paddingHorizontal: 15,
+        paddingVertical: 15,
         borderRadius: 5,
-        marginTop: 20,
         width: '100%',
         textAlign: 'center',
       },
@@ -146,22 +145,19 @@ const styles = StyleSheet.create({
         color: '#fff',
         textAlign: 'center'
       },
-    detailLabel: {
-
-      },
     detailInfo: {
         fontWeight: "bold"
       },
     detailItem: {
         width: '100%',
-        padding: 12,
+        padding: 15,
         borderColor: "#c4c4c4",
         borderWidth: 1,
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginBottom: 16,
+        marginBottom: 15,
         borderRadius: 5
     }
 })

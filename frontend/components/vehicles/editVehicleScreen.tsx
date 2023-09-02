@@ -64,7 +64,7 @@ const EditVehicleScreen = ({ route, navigation }) => {
               style={chargerId === charger.id ? styles.selectedCharger : styles.unselectedCharger}
               key={charger.id}>
               <View style={styles.chargerImage}></View>
-              <Text style={styles.chargerText}>{charger.name}</Text>
+              <Text>{charger.name}</Text>
             </Pressable>
           ))
         }
@@ -80,46 +80,46 @@ const styles = StyleSheet.create({
     height: '100%',
     backgroundColor: '#fff',
     alignItems: 'center',
-    padding: 24
+    padding: 15
   },
   formLabel: {
     fontWeight: "bold",
     textAlign: 'left',
     width: '100%',
-    marginBottom: 16
+    marginBottom: 15
   },
   textInput: {
-    padding: 12,
+    padding: 15,
     borderWidth: 1,
     borderColor: '#c4c4c4',
     width: '100%',
     borderRadius: 5,
-    marginBottom: 16
+    marginBottom: 15
   },
   selectedCharger: {
     borderWidth: 1,
     borderColor: "#c4c4c4",
-    padding: 12,
+    padding: 15,
     width: '100%',
     borderRadius: 5,
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
-    marginBottom: 12,
+    gap: 15,
+    marginBottom: 15,
     backgroundColor: "#f3f3f3"
   },
   unselectedCharger: {
     borderWidth: 1,
     borderColor: "#c4c4c4",
-    padding: 12,
+    padding: 15,
     width: '100%',
     borderRadius: 5,
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
-    marginBottom: 12
+    gap: 15,
+    marginBottom: 15
   },
   chargerImage: {
     height: 40,
@@ -127,18 +127,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#c4c4c4",
     borderRadius: 40
   },
-  chargerText: {
-
-  },
   formButton: {
     backgroundColor: "#000",
-    paddingHorizontal: 16,
-    paddingVertical: 12,
+    paddingHorizontal: 15,
+    paddingVertical: 15,
     borderRadius: 5,
-    marginTop: 20,
     width: '100%',
     textAlign: 'center',
-    marginBottom: 48
+    marginBottom: 50
   },
   buttonText: {
     fontWeight: "bold",

@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from 'react';
-import { Vehicle } from '../models';
+import { Vehicle, Location } from '../models';
 
 type Context = {
     saveVehicle: (vehicle: Vehicle) => void;
@@ -9,7 +9,9 @@ type Context = {
     view: string;
     setView: (view:string) => void;
     locationsOn: boolean,
-    setLocationsOn: (toggle: boolean) => void
+    setLocationsOn: (toggle: boolean) => void,
+    currentLocation: Location,
+    setCurrentLocation: (location: Location) => void,
 }
 
 const AppContext = createContext<Context | null>(null);
@@ -19,7 +21,8 @@ export const useApp = () => useContext(AppContext)
 const AppProvider = ({children}) => {
     const [ myVehicles, setMyVehicles ] = useState({})
     const [ view, setView ] = useState('map');
-    const [ locationsOn, setLocationsOn ] = useState(true)
+    const [ locationsOn, setLocationsOn ] = useState(true);
+    const [ currentLocation, setCurrentLocation ] = useState(null)
 
     const saveVehicle = (vehicle: Vehicle) => {
         setMyVehicles({...myVehicles, [vehicle.id]: vehicle})
@@ -39,6 +42,8 @@ const AppProvider = ({children}) => {
 
     return (
         <AppContext.Provider value={{
+            currentLocation,
+            setCurrentLocation,
             locationsOn,
             setLocationsOn,
             view,

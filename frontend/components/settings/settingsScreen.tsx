@@ -31,19 +31,19 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
         alignItems: 'center',
-        padding: 24,
+        padding: 15,
         paddingBottom: 70
     },
     button: {
         width: '100%',
-        padding: 12,
+        padding: 15,
         borderColor: "#c4c4c4",
         borderWidth: 1,
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginBottom: 16,
+        marginBottom: 15,
         borderRadius: 5
     },
     toggleContainer: {
@@ -78,10 +78,8 @@ const styles = StyleSheet.create({
     },
     buttonPrimary: {
         backgroundColor: '#000',
-        paddingHorizontal: 16,
-        paddingVertical: 12,
+        padding: 15,
         borderRadius: 5,
-        marginTop: 20,
         width: '100%',
         textAlign: 'center',
       },

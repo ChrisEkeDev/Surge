@@ -7,12 +7,12 @@ const VehicleItem = ({ vehicle, navigation }) => {
 
     return (
         <Pressable onPress={() => navigation.navigate("My Vehicle", {vehicle: vehicle})} style={styles.vehicleItem}>
-            <View style={styles.vehicleInfo}>
+            <View>
                 <Text style={styles.vehicleName}>{vehicle.item.name}</Text>
-                <Text style={styles.vehicleDetails}>{vehicle.item.year} {vehicle.item.make} {vehicle.item.model}</Text>
+                <Text>{vehicle.item.year} {vehicle.item.make} {vehicle.item.model}</Text>
             </View>
-            <View style={styles.vehicleCharger}>
-                <Text style={styles.chargerName}>{charger.name}</Text>
+            <View>
+                <Text>{charger.name}</Text>
                 <View style={styles.chargerImage}></View>
             </View>
         </Pressable>
@@ -24,31 +24,22 @@ const styles = StyleSheet.create({
     vehicleItem: {
         borderColor: "#c4c4c4",
         borderWidth: 1,
-        padding: 12,
+        padding: 15,
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginBottom: 16,
+        marginBottom: 15,
         borderRadius: 5
-    },
-    vehicleInfo: {
-
     },
     vehicleName: {
         fontWeight: "bold"
     },
-    vehicleDetails: {
-
-    },
     vehicleCharger: {
         display: 'flex',
         alignItems: 'center',
-        gap: 10,
+        gap: 15,
         flexDirection: 'row'
-    },
-    chargerName: {
-
     },
     chargerImage: {
         height: 40,

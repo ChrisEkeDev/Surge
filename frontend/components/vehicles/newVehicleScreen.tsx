@@ -79,47 +79,47 @@ const styles = StyleSheet.create({
   screenContainer: {
     paddingBottom: 50,
     backgroundColor: '#fff',
-    paddingHorizontal: 24,
-    paddingTop: 24
+    paddingHorizontal: 15,
+    paddingTop: 15
   },
   formLabel: {
     fontWeight: "bold",
     textAlign: 'left',
     width: '100%',
-    marginBottom: 16
+    marginBottom: 15
   },
   textInput: {
-    padding: 12,
+    padding: 15,
     borderWidth: 1,
     borderColor: '#c4c4c4',
     width: '100%',
     borderRadius: 5,
-    marginBottom: 16
+    marginBottom: 15
   },
   selectedCharger: {
     borderWidth: 1,
     borderColor: "#c4c4c4",
-    padding: 12,
+    padding: 15,
     width: '100%',
     borderRadius: 5,
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
-    marginBottom: 12,
+    gap: 15,
+    marginBottom: 15,
     backgroundColor: "#f3f3f3"
   },
   unselectedCharger: {
     borderWidth: 1,
     borderColor: "#c4c4c4",
-    padding: 12,
+    padding: 15,
     width: '100%',
     borderRadius: 5,
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
-    marginBottom: 12
+    gap: 15,
+    marginBottom: 15
   },
   chargerImage: {
     height: 40,
@@ -132,10 +132,9 @@ const styles = StyleSheet.create({
   },
   formButton: {
     backgroundColor: "#000",
-    paddingHorizontal: 16,
-    paddingVertical: 12,
+    paddingHorizontal: 15,
+    paddingVertical: 15,
     borderRadius: 5,
-    marginTop: 20,
     width: '100%',
     textAlign: 'center',
   },

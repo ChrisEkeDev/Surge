@@ -43,14 +43,14 @@ const BottomNavigation = () => {
 
 const styles = StyleSheet.create({
     tabBar: {
-        // position: 'absolute',
-        bottom: 0,
+        height: 70,
+        padding: 15
     },
     tabLabel: {
-        paddingBottom: 6
+        paddingVertical: 15
     },
     tabBarLabel: {
-
+        fontSize: 14
     },
     tabBarIconStyle: {
 

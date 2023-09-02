@@ -12,8 +12,9 @@ const VehiclesScreen = ({ navigation }) => {
       {
         normalizedVehicles.length > 0 ?
         <FlatList style={styles.list} data={normalizedVehicles} renderItem={(item) => <VehicleItem vehicle={item} navigation={navigation}/>}/> :
-        <View>
-          <Text>No Vehicles Yet</Text>
+        <View style={styles.noVehiclesContainer}>
+          <View style={styles.noVehiclesImage}></View>
+          <Text style={styles.noVehiclesText}>No Vehicles Yet</Text>
         </View>
       }
       <Pressable style={styles.button} onPress={() => navigation.navigate("Add Vehicle")}>
@@ -28,7 +29,7 @@ const styles = StyleSheet.create({
       flex: 1,
       backgroundColor: '#fff',
       alignItems: 'center',
-      padding: 24,
+      padding: 15,
       paddingBottom: 70
     },
     list: {
@@ -36,10 +37,9 @@ const styles = StyleSheet.create({
     },
     button: {
       backgroundColor: "#000",
-      paddingHorizontal: 16,
-      paddingVertical: 12,
+      paddingHorizontal: 15,
+      paddingVertical: 15,
       borderRadius: 5,
-      marginTop: 20,
       width: '100%',
       textAlign: 'center'
     },
@@ -47,6 +47,27 @@ const styles = StyleSheet.create({
       fontWeight: "bold",
       color: "#fff",
       textAlign: 'center'
+    },
+    noVehiclesContainer: {
+      display: 'flex',
+      justifyContent: "center",
+      alignItems: "center",
+      borderRadius: 10,
+      borderWidth: 1,
+      borderColor: "#c4c4c4",
+      width: '100%',
+      marginBottom: 15,
+      padding: 30
+    },
+    noVehiclesText: {
+
+    },
+    noVehiclesImage: {
+      height: 40,
+      aspectRatio: 1,
+      backgroundColor: "#c4c4c4",
+      borderRadius: 40,
+      marginBottom: 15
     }
 });
 
