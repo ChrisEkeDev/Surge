@@ -8,6 +8,8 @@ type Context = {
     myVehicles: {};
     view: string;
     setView: (view:string) => void;
+    locationsOn: boolean,
+    setLocationsOn: (toggle: boolean) => void
 }
 
 const AppContext = createContext<Context | null>(null);
@@ -17,6 +19,7 @@ export const useApp = () => useContext(AppContext)
 const AppProvider = ({children}) => {
     const [ myVehicles, setMyVehicles ] = useState({})
     const [ view, setView ] = useState('map');
+    const [ locationsOn, setLocationsOn ] = useState(true)
 
     const saveVehicle = (vehicle: Vehicle) => {
         setMyVehicles({...myVehicles, [vehicle.id]: vehicle})
@@ -35,7 +38,16 @@ const AppProvider = ({children}) => {
     }
 
     return (
-        <AppContext.Provider value={{view, setView, myVehicles, saveVehicle, deleteVehicle, editVehicle}}>
+        <AppContext.Provider value={{
+            locationsOn,
+            setLocationsOn,
+            view,
+            setView,
+            myVehicles,
+            saveVehicle,
+            deleteVehicle,
+            editVehicle
+            }}>
             {children}
         </AppContext.Provider>
     )

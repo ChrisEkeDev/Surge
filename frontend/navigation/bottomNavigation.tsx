@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { CarsNavigator, StationsNavigator } from './Navigators';
+import { CarsNavigator, StationsNavigator, SettingsNavigator } from './Navigators';
 
   const Tab = createBottomTabNavigator();
 
@@ -30,7 +30,12 @@ const BottomNavigation = () => {
                 name='Stations'
                 component={StationsNavigator}
             />
-            {/* <Tab.Screen name='Settings' component={SettingsScreen}/> */}
+            <Tab.Screen
+                options={{
+                }}
+                name='Settings'
+                component={SettingsNavigator}
+            />
 
         </Tab.Navigator>
     )

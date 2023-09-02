@@ -24,6 +24,7 @@ const VehicleDetailsScreen = ({ route, navigation }) => {
             onRequestClose={() => setDeleting(false)}
           >
             <View style={styles.modalContainer}>
+              <View style={styles.iconImage}></View>
               <Text style={styles.modalTitle}>Are you sure you want to delete this vehicle?</Text>
               <View style={styles.vehicleItem}>
                 <View style={styles.vehicleInfo}>
@@ -35,7 +36,7 @@ const VehicleDetailsScreen = ({ route, navigation }) => {
                     <View style={styles.chargerImage}></View>
                 </View>
               </View>
-              <View>
+              <View style={styles.buttonContainer}>
                 <Pressable style={styles.buttonPrimary} onPress={() => handleDelete(vehicle.item.id)}>
                   <Text style={styles.buttonPrimaryText}>Delete Vehicle</Text>
                 </Pressable>
@@ -86,7 +87,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#fff',
     alignItems: 'center',
-    width: '100%'
+    width: '100%',
+    padding: 24
   },
   modalTitle: {
     marginBottom: 16,
@@ -123,6 +125,13 @@ const styles = StyleSheet.create({
   },
   chargerImage: {
     height: 40,
+    aspectRatio: 1,
+    backgroundColor: '#c4c4c4',
+    borderRadius: 40
+  },
+  iconImage: {
+    height: 40,
+    marginBottom: 16,
     aspectRatio: 1,
     backgroundColor: '#c4c4c4',
     borderRadius: 40
@@ -170,7 +179,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    borderRadius: 5
+    borderRadius: 5,
+    width: '100%'
   },
   vehicleInfo: {
 
