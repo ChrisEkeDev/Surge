@@ -77,10 +77,10 @@ const NewVehicleScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   screenContainer: {
-    height: '100%',
+    paddingBottom: 50,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    padding: 24
+    paddingHorizontal: 24,
+    paddingTop: 24
   },
   formLabel: {
     fontWeight: "bold",
@@ -138,7 +138,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
     width: '100%',
     textAlign: 'center',
-    marginBottom: 48
   },
   buttonText: {
     fontWeight: "bold",
