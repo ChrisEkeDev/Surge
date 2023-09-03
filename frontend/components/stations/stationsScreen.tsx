@@ -3,7 +3,7 @@ import { pressables } from '../../styles/Pressables';
 import StationItem from './stationItem';
 import { useApp } from '../../context/appContext';
 import { locations } from '../../models';
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useState } from 'react';
 import Map from './Map';
 
@@ -23,9 +23,7 @@ const StationsScreen = ({ navigation }) => {
             view === 'map' ?
             currentLocation ?
             <View style={styles.currentLocation}>
-                <MaterialIcons style={[styles.navigationIcon, {
-                    transform: [{rotateZ: '45deg'}],
-                },]} name='navigation' size={24} color="#000"/>
+                <MaterialCommunityIcons name='navigation-variant-outline' size={24} color="#000"/>
                 <View style={styles.currentDistance}>
                     <Text style={styles.currentAddress}>{currentLocation.address}</Text>
                     <Text style={styles.currentMiles}>10 mi</Text>
@@ -44,8 +42,8 @@ const StationsScreen = ({ navigation }) => {
             <Pressable onPress={handleView} style={pressables.iconButton}>
                 {
                     view === "map" ?
-                    <MaterialIcons name="list" size={20} color="#A7AFF4" /> :
-                    <MaterialIcons name="map" size={20} color="#A7AFF4" />
+                    <MaterialCommunityIcons name="view-list-outline" size={20} color="#A7AFF4" /> :
+                    <MaterialCommunityIcons name="map-legend" size={20} color="#A7AFF4" />
                 }
 
             </Pressable>
@@ -81,7 +79,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         padding: 16,
         elevation: 2,
-        shadowColor: "rgba(0,0,0,.15)",
+        shadowColor: "rgba(0,0,0,.25)",
         gap: 10
     },
     currentDistance: {

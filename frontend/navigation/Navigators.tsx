@@ -57,7 +57,15 @@ export  { CarsNavigator }
 const SettingsNavigator = () => {
     return (
         <Stack.Navigator  initialRouteName="Settings">
-            <Stack.Screen name="Settings" component={SettingsScreen}/>
+            <Stack.Screen name="Settings" options={{
+                    title: 'Settings',
+                    headerStyle: elements.header,
+                    headerTitleStyle: elements.headerTitle
+                    // headerRight: () => (
+                    //     <Profile/>
+                    // )
+                }}
+                component={SettingsScreen}/>
             <Stack.Screen name="Profile" component={SettingProfile}/>
             <Stack.Screen name="Edit Profile" component={SettingsEditProfile}/>
         </Stack.Navigator>

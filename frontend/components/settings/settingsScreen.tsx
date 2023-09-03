@@ -1,7 +1,7 @@
 import React from 'react';
 import { useApp } from '../../context/appContext';
 import { View, Text, StyleSheet, Pressable} from 'react-native';
-import { Feather } from '@expo/vector-icons';
+import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 const SettingsScreen = ({ navigation }) => {
     const { locationsOn, setLocationsOn } = useApp();
@@ -11,19 +11,32 @@ const SettingsScreen = ({ navigation }) => {
     return  (
         <View style={styles.screenContainer}>
             <Pressable onPress={() => setLocationsOn(!locationsOn)} style={styles.button}>
-                <Text>Location Services</Text>
+                <View style={styles.settingLabel}>
+                    <MaterialCommunityIcons name="map-marker-outline" size={24} color="#A7AFF4" />
+                    <Text style={styles.buttonText}>Location Services</Text>
+                </View>
                 <View>
-                    <Feather name="map-pin" size={25} color={locationsOn ? "black" : "#c4c4c4"} />
+                    {
+                        locationsOn ?
+                        <MaterialIcons name="my-location" size={24} color="#A7AFF4"/> :
+                        <MaterialIcons name="location-disabled" size={24} color="#353766"/>
+                    }
                 </View>
             </Pressable>
             <Pressable onPress={() => navigation.navigate("Profile")} style={styles.button}>
-                <Text>Profile</Text>
+                <View style={styles.settingLabel}>
+                    <MaterialCommunityIcons name="account-outline" size={24} color="#A7AFF4" />
+                    <Text style={styles.buttonText}>Profile</Text>
+                </View>
                 <View>
-                    <Feather name="user" size={25} color="black" />
+                    <MaterialIcons name="chevron-right" size={24} color="#353766" />
                 </View>
             </Pressable>
-            <Pressable style={styles.buttonPrimary}>
-                <Text style={styles.buttonPrimaryText}>Sign Out</Text>
+            <Pressable style={styles.button}>
+                <View style={styles.settingLabel}>
+                <MaterialCommunityIcons name="logout-variant" size={24} color="#A7AFF4" />
+                    <Text style={styles.buttonText}>Sign Out</Text>
+                </View>
             </Pressable>
         </View>
     )
@@ -32,22 +45,28 @@ const SettingsScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
     screenContainer: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#1D1F40',
         alignItems: 'center',
-        padding: 15,
+        paddingHorizontal: 16,
         paddingBottom: 70
+    },
+    settingLabel: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 16
     },
     button: {
         width: '100%',
-        padding: 15,
-        borderColor: "#c4c4c4",
-        borderWidth: 1,
+        paddingVertical: 16,
+        borderBottomColor: "rgba(255,255,255,.10)",
+        borderBottomWidth: 1,
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginBottom: 15,
-        borderRadius: 5
+    },
+    buttonText: {
+        color: "white"
     },
     toggleContainer: {
         width: 40,

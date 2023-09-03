@@ -1,7 +1,7 @@
 import React from 'react';
 import { useApp } from '../../context/appContext';
 import { Pressable, Text,StyleSheet, View } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Location } from '../../models';
 
 
@@ -23,9 +23,7 @@ const StationItem = ({station, navigation}) => {
             </View>
         </View>
         <Pressable onPress={() => getDirections(station.item)} style={styles.navigateButton}>
-          <MaterialIcons style={[styles.navigationIcon, {
-            transform: [{rotateZ: '45deg'}],
-          },]} name='navigation' size={24} color="#A7AFF4"/>
+        <MaterialCommunityIcons name='navigation-variant-outline' size={24} color="#A7AFF4"/>
           <Text style={styles.stationDistance}>{station.item.distance} mi</Text>
         </Pressable>
     </View>

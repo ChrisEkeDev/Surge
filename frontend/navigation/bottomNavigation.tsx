@@ -7,7 +7,7 @@ import { CarsNavigator, StationsNavigator, SettingsNavigator } from './Navigator
 const BottomNavigation = () => {
     return (
         <Tab.Navigator
-            initialRouteName="Root"
+            initialRouteName="SettingsTab"
             backBehavior='order'
             sceneContainerStyle={styles.container}
 
