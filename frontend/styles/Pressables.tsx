@@ -13,13 +13,14 @@ export const pressables = StyleSheet.create({
     iconButton: {
         height: 45,
         aspectRatio: 1,
-        backgroundColor: "#fff",
+        backgroundColor: "#353766",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         borderRadius: 45,
         elevation: 2,
-        shadowColor: "#c4c4c4"
+        shadowColor: "#1E1E28",
+        right: 0,
         // shadowProp: borderShadow
     },
 })

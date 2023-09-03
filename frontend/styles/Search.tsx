@@ -31,7 +31,7 @@ export const search = StyleSheet.create({
     searchContainer: {
         position: "absolute",
         width: windowWidth,
-        left: offset,
+        right: 0,
         paddingHorizontal: 16,
         flexDirection: "row",
         alignItems: "center",
@@ -42,8 +42,9 @@ export const search = StyleSheet.create({
         left: 16
     },
     searchInput: {
-        fontSize: 16,
+        fontSize: 18,
         color: "white",
+        width: "100%"
     },
     searchButton: {
         height: 48,

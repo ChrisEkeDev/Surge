@@ -8,34 +8,46 @@ import { useState } from 'react';
 import Map from './Map';
 
 const StationsScreen = ({ navigation }) => {
-    const { view, setView } = useApp();
+    const { view, setView, currentLocation } = useApp();
 
     const handleView = () => {
         if (view === "map") setView('list')
         else setView('map')
     }
+    const station = currentLocation;
+    console.log(station)
 
     return (
         <>
         {
             view === 'map' ?
-            <Map/>
-:
+            currentLocation ?
+            <View style={styles.currentLocation}>
+                <MaterialIcons style={[styles.navigationIcon, {
+                    transform: [{rotateZ: '45deg'}],
+                },]} name='navigation' size={24} color="#000"/>
+                <View style={styles.currentDistance}>
+                    <Text style={styles.currentAddress}>{currentLocation.address}</Text>
+                    <Text style={styles.currentMiles}>10 mi</Text>
+                </View>
+            </View> :
+            <View>
+                <Text>Showing Locations</Text>
+            </View>
+        :
             <View style={styles.listContainer}>
-                <Text style={styles.resultsTitle}>{locations.length} Charging Stations found </Text>
+                {/* <Text style={styles.resultsTitle}>{locations.length} Charging Stations found </Text> */}
                 <FlatList style={styles.stationList} data={locations} renderItem={(item) => <StationItem station={item} navigation={navigation} />}/>
             </View>
         }
         <View style={styles.bottomOptions}>
-            <View style={styles.activeCar}>
-                <Text style={styles.activeLabel}>Car Name - Charger</Text>
-            </View>
             <Pressable onPress={handleView} style={pressables.iconButton}>
                 {
                     view === "map" ?
-                    <MaterialIcons name="list" size={20} color="black" /> :
-                    <MaterialIcons name="map" size={20} color="black" />
+                    <MaterialIcons name="list" size={20} color="#A7AFF4" /> :
+                    <MaterialIcons name="map" size={20} color="#A7AFF4" />
                 }
+
             </Pressable>
         </View>
 
@@ -54,18 +66,42 @@ const styles = StyleSheet.create({
     bottomOptions: {
         position: "absolute",
         bottom: 0,
+        right: 0,
         padding: 15,
-        width: '100%',
         zIndex: 2,
         display: "flex",
+        flexDirection: "column-reverse",
+        alignItems: "center",
+        gap: 15,
+    },
+    currentLocation: {
+        width: "100%",
+        backgroundColor: "white",
         flexDirection: "row",
         alignItems: "center",
+        padding: 16,
+        elevation: 2,
+        shadowColor: "rgba(0,0,0,.15)",
+        gap: 10
+    },
+    currentDistance: {
+        flex: 1,
         justifyContent: "space-between",
-        gap: 15
+        flexDirection: "row",
+        alignItems: "center"
+    },
+    currentAddress: {
+
+    },
+    currentMiles: {
+        fontWeight: "bold",
+    },
+    navigationIcon: {
+
     },
     resultsTitle: {
         fontWeight: "bold",
-        color: "#353766",
+        color: "#A7AFF4",
         fontSize: 10
     },
     activeCar: {
@@ -80,10 +116,9 @@ const styles = StyleSheet.create({
         fontWeight: "bold"
     },
     listContainer: {
-        backgroundColor: "#0E1037",
+        backgroundColor: "#1D1F40",
         flex: 1,
-        paddingHorizontal: 16,
-        paddingTop: 16
+        paddingHorizontal: 16
     },
     searchBarContainer: {
         position: "absolute",
@@ -111,8 +146,8 @@ const styles = StyleSheet.create({
         position: "absolute",
     },
     iconImage: {
-        position: "absolute",
-        right: 30
+        // position: "absolute",
+        // right: 0
     },
     stationList: {
         marginBottom: 60
