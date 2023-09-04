@@ -8,20 +8,21 @@ import { useState } from 'react';
 import Map from './Map';
 
 const StationsScreen = ({ navigation }) => {
-    const { view, setView, currentLocation, setCurrentLocation } = useApp();
+    const { view, setView, currentLocation, setCurrentLocation, stations} = useApp();
 
     const handleView = () => {
         if (view === "map") setView('list')
         else setView('map')
     }
     const station = currentLocation;
-    console.log(station)
+    console.log(stations)
 
     return (
         <>
         {
             view === 'map' ?
             <>
+            <Map/>
             {
                 currentLocation ?
                 <View style={styles.currentLocation}>
@@ -39,7 +40,7 @@ const StationsScreen = ({ navigation }) => {
             </>
         :
             <View style={styles.listContainer}>
-                <FlatList style={styles.stationList} data={locations} renderItem={(item) => <StationItem station={item} navigation={navigation} />}/>
+                <FlatList style={styles.stationList} data={stations} renderItem={(item) => <StationItem station={item} navigation={navigation} />}/>
             </View>
         }
         <View style={styles.bottomOptions}>

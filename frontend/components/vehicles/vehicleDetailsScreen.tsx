@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { chargers } from '../../models';
 import { View, Text, StyleSheet, Pressable, Modal } from 'react-native'
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
+import Button from '../../styles/Buttons';
+import { buttons } from '../../styles/MasterStyles';
+
 
 const VehicleDetailsScreen = ({ route, navigation }) => {
     const { vehicle } = route.params;
@@ -26,25 +29,19 @@ const VehicleDetailsScreen = ({ route, navigation }) => {
             <View style={styles.chargerImage}></View>
             <Text style={styles.chargerLabel}>{charger.name}</Text>
           </View>
-          <View style={styles.buttonContainer}>
-            <Pressable onPress={() => navigation.navigate("Edit Vehicle", {vehicle: vehicle})} style={styles.button}>
-              <View style={styles.settingLabel}>
-              <MaterialCommunityIcons name="circle-edit-outline" size={20} color="#A7AFF4" />
-                <Text style={styles.buttonText}>Edit Vehicle</Text>
-              </View>
-              <View>
-                    <MaterialIcons name="chevron-right" size={20} color="#353766" />
-              </View>
-            </Pressable>
-            <Pressable  onPress={() => navigation.navigate("Delete Vehicle", {vehicle: vehicle})} style={styles.button}>
-              <View style={styles.settingLabel}>
-              <MaterialCommunityIcons name="trash-can-outline" size={20} color="#FF5252" />
-              <Text style={styles.buttonText}>Delete Vehicle</Text>
-              </View>
-              <View>
-                    <MaterialIcons name="chevron-right" size={20} color="#353766" />
-              </View>
-            </Pressable>
+          <View style={buttons.container}>
+            <Button
+              style="arrow"
+              icon={<MaterialCommunityIcons style={buttons.icon} name="circle-edit-outline" size={20} color="#A7AFF4" />}
+              handle={() => navigation.navigate("Edit Vehicle", {vehicle: vehicle})}
+              label="Edit Vehicle"
+            />
+            <Button
+              style="arrow"
+              icon={<MaterialCommunityIcons style={buttons.icon} name="trash-can-outline" size={20} color="#FF5252" />}
+              handle={() => navigation.navigate("Delete Vehicle", {vehicle: vehicle})}
+              label="Delete Vehicle"
+            />
           </View>
       </View>
     )

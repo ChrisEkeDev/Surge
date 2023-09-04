@@ -2,27 +2,23 @@ import { StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { CarsNavigator, StationsNavigator, SettingsNavigator } from './Navigators';
-import { TransitionSpecs, HeaderStyleInterpolators } from '@react-navigation/stack';
-
-const MyTransition = {
-  gestureDirection: 'horizontal',
-  transitionSpec: {
-    open: TransitionSpecs.TransitionIOSSpec,
-    close: TransitionSpecs.TransitionIOSSpec,
-  },
-  headerStyleInterpolator: HeaderStyleInterpolators.forFade,
-}
+import { useApp } from '../context/appContext';
+import Authentication from './Authentication';
 
   const Tab = createBottomTabNavigator();
 
-const BottomNavigation = () => {
+const AppNavigation = () => {
+    const { user } = useApp()
+
     return (
-        <Tab.Navigator
-            initialRouteName="VehiclesTab"
+        <>
+        {
+            user ?
+            <Tab.Navigator
+            initialRouteName="StationsTab"
             backBehavior='order'
             sceneContainerStyle={styles.container}
             screenOptions={{
-                ...MyTransition,
                 tabBarStyle: styles.tabBar,
                 tabBarLabelStyle: styles.tabLabel,
                 tabBarActiveTintColor: "#353766",
@@ -72,7 +68,10 @@ const BottomNavigation = () => {
                 name='SettingsTab'
                 component={SettingsNavigator}
             />
-        </Tab.Navigator>
+        </Tab.Navigator> :
+        <Authentication/>
+        }
+        </>
     )
 }
 
@@ -101,4 +100,4 @@ const styles = StyleSheet.create({
 
 })
 
-export default BottomNavigation
+export default AppNavigation

@@ -1,6 +1,8 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { Vehicle, Location } from '../models';
+import { Vehicle, User } from '../models';
 import { vehicles } from '../models';
+import * as Location from 'expo-location';
+import { getStations } from '../utils/GetStations';
 
 type Context = {
     saveVehicle: (vehicle: Vehicle) => void;
@@ -9,10 +11,14 @@ type Context = {
     myVehicles: {};
     view: string;
     setView: (view:string) => void;
+    stations: any,
+    setStations: (stations: any) => void,
     locationsOn: boolean,
     setLocationsOn: (toggle: boolean) => void,
-    currentLocation: Location,
-    setCurrentLocation: (location: Location) => void,
+    currentLocation: any,
+    setCurrentLocation: (location: any) => void,
+    user: User,
+    setUser: (user: User) => void
 }
 
 const AppContext = createContext<Context | null>(null);
@@ -20,10 +26,12 @@ const AppContext = createContext<Context | null>(null);
 export const useApp = () => useContext(AppContext)
 
 const AppProvider = ({children}) => {
+    const [stations, setStations] = useState<any>(null)
     const [ myVehicles, setMyVehicles ] = useState({})
     const [ view, setView ] = useState('map');
     const [ locationsOn, setLocationsOn ] = useState(true);
-    const [ currentLocation, setCurrentLocation ] = useState(null)
+    const [ currentLocation, setCurrentLocation ] = useState(null);
+    const [ user, setUser ] = useState(null)
     console.log(myVehicles)
 
     const saveVehicle = (vehicle: Vehicle) => {
@@ -55,8 +63,33 @@ const AppProvider = ({children}) => {
         initState()
     }, [])
 
+    useEffect(() => {
+        const getPermissions = async () => {
+            let  { status } = await Location.requestForegroundPermissionsAsync();
+            if (status !== 'granted') {
+                console.log("Please grant permissions.")
+                return
+            }
+            let currLoc = await Location.getCurrentPositionAsync({})
+            setCurrentLocation({
+                latitude: currLoc.coords.latitude,
+                longitude: currLoc.coords.longitude
+            })
+            // const stations = getStations({
+            //     latitude: currLoc.coords.latitude,
+            //     longitude: currLoc.coords.longitude
+            // })
+            // setStations(stations)
+        }
+        getPermissions()
+    }, [])
+
     return (
         <AppContext.Provider value={{
+            stations,
+            setStations,
+            user,
+            setUser,
             currentLocation,
             setCurrentLocation,
             locationsOn,

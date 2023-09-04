@@ -7,6 +7,12 @@ export interface Vehicle  {
     chargerId: number
 }
 
+export interface User {
+    id: number,
+    name: string,
+    email: string
+}
+
 export interface Location {
     id: number;
     name: string;

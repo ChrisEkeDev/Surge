@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useApp } from '../../context/appContext';
 import { View, Text, StyleSheet, Pressable, TextInput } from 'react-native';
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { buttons } from '../../styles/MasterStyles';
+import Button from '../../styles/Buttons';
 
 const SettingsProfile = ({ navigation }) => {
 
@@ -19,25 +21,20 @@ const SettingsProfile = ({ navigation }) => {
             <Text style={styles.detailLabel}>Password</Text>
             <TextInput editable={false} selectTextOnFocus={false} value="password" secureTextEntry={true} style={styles.detailInfo}/>
           </View>
-          <View style={styles.buttonContainer}>
-            <Pressable onPress={() => navigation.navigate("Edit Profile")} style={styles.button}>
-              <View style={styles.settingLabel}>
-                <MaterialCommunityIcons name="account-edit-outline" size={20} color="#A7AFF4" />
-                <Text style={styles.buttonText}>Edit Profile</Text>
-              </View>
-              <View>
-                    <MaterialIcons name="chevron-right" size={20} color="#353766" />
-              </View>
-            </Pressable>
-            <Pressable onPress={() => navigation.navigate("Delete Profile")} style={styles.button}>
-              <View style={styles.settingLabel}>
-                <MaterialCommunityIcons name="account-cancel-outline" size={20} color="#FF5252" />
-                <Text style={styles.buttonText}>Delete Profile</Text>
-              </View>
-              <View>
-                    <MaterialIcons name="chevron-right" size={20} color="#353766" />
-              </View>
-            </Pressable>
+
+          <View style={buttons.container}>
+            <Button
+                style="arrow"
+                icon={<MaterialCommunityIcons style={buttons.icon} name="account-edit-outline" size={20} color="#A7AFF4" />}
+                handle={() => navigation.navigate("Edit Profile")}
+                label="Edit Profile"
+            />
+            <Button
+                style="arrow"
+                icon={<MaterialCommunityIcons style={buttons.icon} name="account-cancel-outline" size={20} color="#FF5252" />}
+                handle={() => navigation.navigate("Delete Profile")}
+                label="Delete Profile"
+            />
           </View>
         </View>
     )
@@ -48,7 +45,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#1D1F40',
         alignItems: 'center',
-        paddingHorizontal: 16,
+        padding: 16,
         paddingBottom: 70
     },
     modalContainer: {

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useApp } from '../../context/appContext';
 import { ScrollView, View, TextInput, Text, StyleSheet, Pressable, Modal, ToastAndroid } from 'react-native';
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { buttons } from '../../styles/MasterStyles';
+import Button from '../../styles/Buttons';
 
 const SettingsDeleteProfile = ({ navigation }) => {
     const user = {
@@ -13,13 +15,14 @@ const SettingsDeleteProfile = ({ navigation }) => {
           <MaterialCommunityIcons name="account-alert-outline" size={32} color="#A7AFF4"/>
             <View style={styles.message}>
               <Text style={styles.messageHeader}>Are you sure you want to delete this profile?</Text>
-              <Text style={styles.messageText}>This action is irreversible.</Text>
             </View>
-            <View style={styles.actionsContainer}>
-                <Pressable onPress={() => navigation.goBack(null)} style={styles.actionButton}>
-                    <MaterialCommunityIcons name="trash-can-outline" size={20} color="#FF5252"/>
-                    <Text style={styles.actionButtonText}>Delete Profile</Text>
-                </Pressable>
+            <View style={buttons.container}>
+                <Button
+                  style=""
+                  icon={<MaterialCommunityIcons style={buttons.icon} name="trash-can-outline" size={20} color="#FF5252"/>}
+                  handle={() => navigation.goBack(null)}
+                  label="Delete Profile"
+                />
             </View>
         </ScrollView>
     )

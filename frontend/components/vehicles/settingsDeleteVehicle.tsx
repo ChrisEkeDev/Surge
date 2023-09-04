@@ -4,7 +4,8 @@ import { ScrollView, View, TextInput, Text, StyleSheet, Pressable, Modal, ToastA
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import VehicleItem from './vehicleItem';
 import { chargers } from '../../models';
-
+import { buttons } from '../../styles/MasterStyles';
+import Button from '../../styles/Buttons';
 
 const DeleteVehicleScreen = ({ route, navigation }) => {
   const { deleteVehicle } = useApp();
@@ -23,13 +24,14 @@ const DeleteVehicleScreen = ({ route, navigation }) => {
       <MaterialCommunityIcons name="delete-alert-outline" size={32} color="#A7AFF4"/>
       <View style={styles.message}>
         <Text style={styles.messageHeader}>Are you sure you want to delete this vehicle?</Text>
-        <Text style={styles.messageText}>This action is irreversible.</Text>
       </View>
-      <View style={styles.actionsContainer}>
-          <Pressable onPress={() => handleDelete(vehicle?.item.id)} style={styles.actionButton}>
-              <MaterialCommunityIcons name="trash-can-outline" size={20} color="#FF5252"/>
-              <Text style={styles.actionButtonText}>Delete Vehicle</Text>
-          </Pressable>
+      <View style={buttons.container}>
+          <Button
+            style=""
+            icon={<MaterialCommunityIcons style={buttons.icon} name="trash-can-outline" size={20} color="#FF5252" />}
+            handle={() => handleDelete(vehicle?.item.id)}
+            label="Delete Vehicle"
+          />
       </View>
     </ScrollView>
   )

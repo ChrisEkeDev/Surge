@@ -21,9 +21,8 @@ const StationItem = ({station, navigation}) => {
               <Text style={styles.stationAddress}>{station.item.address}</Text>
             </View>
         </View>
-        <Pressable onPress={() => getDirections(station.item)} style={styles.navigateButton}>
-          <MaterialCommunityIcons name='navigation-variant-outline' size={20} color="#A7AFF4"/>
-          <Text style={styles.stationDistance}>{station.item.distance} mi</Text>
+        <Pressable style={styles.navigateButton}>
+          <MaterialCommunityIcons name='chevron-right' size={20} color="#A7AFF4"/>
         </Pressable>
     </View>
   )

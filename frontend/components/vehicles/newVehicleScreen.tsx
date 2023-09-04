@@ -3,8 +3,11 @@ import { chargers } from '../../models';
 import { useApp } from '../../context/appContext';
 import { Vehicle } from '../../models';
 import ChargerItem from './ChargerItem';
+import Input from '../../styles/Inputs';
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { ScrollView, View, Text, TextInput, Pressable, StyleSheet, FlatList } from 'react-native'
+import { buttons } from '../../styles/MasterStyles';
+import Button from '../../styles/Buttons';
 
 const NewVehicleScreen = ({ navigation }) => {
 
@@ -35,48 +38,30 @@ const NewVehicleScreen = ({ navigation }) => {
         <MaterialIcons name="electric-car" size={20} color="#A7AFF4"/>
         <Text style={styles.formLabel}>Vehicle Information</Text>
       </View>
-        <View style={styles.inputContainer}>
-          <View style={styles.inputContents}>
-            <TextInput
-              style={styles.textInput}
-              onChangeText={setName}
-              value={name}
-              placeholder='Name'
-            />
-          </View>
-        </View>
-        <View style={styles.inputContainer}>
-          <View style={styles.inputContents}>
-            <TextInput
-              style={styles.textInput}
-              onChangeText={setMake}
-              value={make}
-              placeholder='Make'
-            />
-          </View>
-        </View>
-        <View style={styles.inputContainer}>
-          <View style={styles.inputContents}>
-              <TextInput
-              style={styles.textInput}
-              onChangeText={setModel}
-              value={model}
-              placeholder='Model'
-            />
-          </View>
-        </View>
-        <View style={styles.inputContainer}>
-          <View style={styles.inputContents}>
-              <TextInput
-              style={styles.textInput}
-              onChangeText={setYear}
-              value={year}
-              placeholder='Year'
-              keyboardType='numeric'
-              maxLength={4}
-            />
-          </View>
-        </View>
+      <Input
+          icon={null}
+          handle={setName}
+          value={name}
+          placeholder="Name"
+      />
+      <Input
+          icon={null}
+          handle={setMake}
+          value={make}
+          placeholder="Make"
+      />
+      <Input
+          icon={null}
+          handle={setModel}
+          value={model}
+          placeholder="Model"
+      />
+        <Input
+          icon={null}
+          handle={setYear}
+          value={year}
+          placeholder="Year"
+      />
         <View style={styles.screenHeader}>
           <MaterialIcons name="electrical-services" size={20} color="#A7AFF4"/>
           <Text style={styles.formLabel}>Select a Charger</Text>
@@ -87,11 +72,13 @@ const NewVehicleScreen = ({ navigation }) => {
           ItemSeparatorComponent={() => <View style={styles.gap}></View>}
           numColumns={2}
           renderItem={(item) => <ChargerItem navigation={navigation} select={setChargerId} id={chargerId} charger={item}/>} />
-        <View style={styles.actionsContainer}>
-            <Pressable onPress={submit} style={styles.actionButton}>
-                <MaterialCommunityIcons name='checkbox-marked-circle-outline' size={20} color="#50A85E" />
-                <Text style={styles.actionButtonText}>Confirm</Text>
-            </Pressable>
+        <View style={buttons.container}>
+            <Button
+              style=""
+              icon={<MaterialCommunityIcons style={buttons.icon} name='checkbox-marked-circle-outline' size={20} color="#50A85E" />}
+              handle={submit}
+              label="Save Vehicle"
+            />
         </View>
     </ScrollView>
   )
@@ -101,14 +88,14 @@ const styles = StyleSheet.create({
   screenContainer: {
     paddingBottom: 70,
     backgroundColor: '#1D1F40',
-    paddingHorizontal: 16,
+    padding: 16,
   },
   screenHeader: {
     flexDirection: "row",
     alignItems: "center",
+    marginTop: 16,
     width: '100%',
     gap: 10,
-    marginVertical: 16
   },
   formLabel: {
     textAlign: 'left',

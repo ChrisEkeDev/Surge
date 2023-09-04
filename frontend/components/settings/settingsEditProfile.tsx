@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import { useApp } from '../../context/appContext';
 import { ScrollView, View, TextInput, Text, StyleSheet, Pressable, Modal, ToastAndroid } from 'react-native';
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
+import Input from '../../styles/Inputs';
+import { buttons, inputs } from '../../styles/MasterStyles';
+import Button from '../../styles/Buttons';
+
 
 const SettingsEditProfile = ({ navigation }) => {
     const user = {
@@ -12,81 +16,44 @@ const SettingsEditProfile = ({ navigation }) => {
     const [username, setUsername] = useState(user.username)
     const [email, setEmail] = useState(user.email)
     const [password, setPassword] = useState("")
-    const [confirmPassword, setConfirmPassword] = useState("")
+    const [confirmPassword, setConfirmPassword] = useState("");
+
 
 
     return (
         <ScrollView contentContainerStyle={styles.screenContainer}>
-            <View style={styles.inputContainer}>
-                <MaterialCommunityIcons name='account-outline' size={20} color="#A7AFF4"/>
-                <View style={styles.inputContents}>
-                    <TextInput
-                        style={styles.textInput}
-                        value={username}
-                        onChangeText={(value) => setUsername(value)}
-                        placeholder='First Name'
-                        placeholderTextColor="rgba(255, 255, 255, .5)"
-                    />
-                    {
-                        user.username !== username ?
-                        <MaterialCommunityIcons style={styles.textIcon} name="alert-circle-outline" size={20} color="#FF5252"/> :
-                        null
-                    }
-                </View>
-            </View>
-            <View style={styles.inputContainer}>
-                <MaterialCommunityIcons name='email-outline' size={20} color="#A7AFF4"/>
-                <View style={styles.inputContents}>
-                    <TextInput
-                        style={styles.textInput}
-                        value={email}
-                        onChangeText={(value) => setEmail(value)}
-                        placeholder='Email'
-                        placeholderTextColor="rgba(255, 255, 255, .5)"
-                    />
-                    {
-                        user.email !== email ?
-                        <MaterialCommunityIcons style={styles.textIcon} name="alert-circle-outline" size={20} color="#FF5252"/> :
-                        null
-                    }
-                </View>
-            </View>
-            <View style={styles.inputContainer}>
-                <MaterialCommunityIcons name='form-textbox-password' size={20} color="#A7AFF4"/>
-                <View style={styles.inputContents}>
-                    <TextInput
-                        style={styles.textInput}
-                        value={password}
-                        onChangeText={(value) => setPassword(value)}
-                        secureTextEntry={true}
-                        placeholder="Password"
-                        placeholderTextColor="rgba(255, 255, 255, .5)"
-                    />
-                    {
-                        "" !== password ?
-                        <MaterialCommunityIcons style={styles.textIcon} name="alert-circle-outline" size={20} color="#FF5252"/> :
-                        null
-                    }
-                </View>
-            </View>
-            <View style={styles.inputContainer}>
-                <MaterialCommunityIcons name='form-textbox-password' size={20} color="#A7AFF4"/>
-                <View style={styles.inputContents}>
-                    <TextInput
-                        style={styles.textInput}
-                        value={confirmPassword}
-                        onChangeText={(value) => setConfirmPassword(value)}
-                        secureTextEntry={true}
-                        placeholder="Confirm Password"
-                        placeholderTextColor="rgba(255, 255, 255, .5)"
-                    />
-                </View>
-            </View>
-            <View style={styles.actionsContainer}>
-                <Pressable onPress={() => navigation.goBack(null)} style={styles.actionButton}>
-                    <MaterialCommunityIcons name='checkbox-marked-circle-outline' size={20} color="#50A85E" />
-                    <Text style={styles.actionButtonText}>Confirm</Text>
-                </Pressable>
+                <Input
+                    icon={<MaterialCommunityIcons style={inputs.icon} name='account-outline' size={20} color="#A7AFF4"/>}
+                    handle={setUsername}
+                    value={username}
+                    placeholder="Username"
+                />
+                <Input
+                    icon={<MaterialCommunityIcons style={inputs.icon} name='email-outline' size={20} color="#A7AFF4"/>}
+                    handle={setEmail}
+                    value={email}
+                    placeholder="Email"
+                />
+                <Input
+                    icon={<MaterialCommunityIcons style={inputs.icon} name='form-textbox-password' size={20} color="#A7AFF4"/>}
+                    handle={setPassword}
+                    value={password}
+                    placeholder="Password"
+                />
+                <Input
+                    icon={<MaterialCommunityIcons style={inputs.icon} name='form-textbox-password' size={20} color="#A7AFF4"/>}
+                    handle={setConfirmPassword}
+                    value={confirmPassword}
+                    placeholder="Confirm Password"
+                />
+
+            <View style={buttons.container}>
+              <Button
+                style=""
+                icon={<MaterialCommunityIcons style={buttons.icon} name='checkbox-marked-circle-outline' size={20} color="#50A85E" />}
+                handle={() => navigation.goBack(null)}
+                label="Save Changes"
+              />
             </View>
         </ScrollView>
     )

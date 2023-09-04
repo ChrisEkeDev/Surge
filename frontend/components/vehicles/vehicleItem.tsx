@@ -1,6 +1,7 @@
 import React from 'react'
 import { chargers } from '../../models'
 import { View, Text, StyleSheet, Pressable } from 'react-native'
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const VehicleItem = ({ vehicle, navigation }) => {
     const charger = chargers.find(charger => charger.id === vehicle.item.chargerId)
@@ -14,7 +15,9 @@ const VehicleItem = ({ vehicle, navigation }) => {
             <View style={item.chargerInfo}>
                 <View style={item.chargerImage}></View>
                 <Text style={item.chargerText}>{charger.name}</Text>
+                <MaterialCommunityIcons name='chevron-right' size={20} color="#A7AFF4"/>
             </View>
+
         </Pressable>
     )
 }
@@ -55,7 +58,8 @@ const VehicleItem = ({ vehicle, navigation }) => {
     chargerInfo: {
         alignItems: "center",
         flexDirection: "row",
-        width: 150,
+        justifyContent: "flex-end",
+        width: 175,
         gap: 16
     },
     chargerText: {
