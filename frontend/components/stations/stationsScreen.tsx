@@ -8,7 +8,7 @@ import { useState } from 'react';
 import Map from './Map';
 
 const StationsScreen = ({ navigation }) => {
-    const { view, setView, currentLocation } = useApp();
+    const { view, setView, currentLocation, setCurrentLocation } = useApp();
 
     const handleView = () => {
         if (view === "map") setView('list')
@@ -27,6 +27,9 @@ const StationsScreen = ({ navigation }) => {
                 <View style={styles.currentDistance}>
                     <Text style={styles.currentAddress}>{currentLocation.address}</Text>
                     <Text style={styles.currentMiles}>10 mi</Text>
+                    <Pressable onPress={() => setCurrentLocation(null)} style={styles.closeNavigation} >
+                        <MaterialIcons name="close"size={20} color="#FF5252"/>
+                    </Pressable>
                 </View>
             </View> :
             <View>
@@ -34,7 +37,6 @@ const StationsScreen = ({ navigation }) => {
             </View>
         :
             <View style={styles.listContainer}>
-                {/* <Text style={styles.resultsTitle}>{locations.length} Charging Stations found </Text> */}
                 <FlatList style={styles.stationList} data={locations} renderItem={(item) => <StationItem station={item} navigation={navigation} />}/>
             </View>
         }
@@ -42,8 +44,8 @@ const StationsScreen = ({ navigation }) => {
             <Pressable onPress={handleView} style={pressables.iconButton}>
                 {
                     view === "map" ?
-                    <MaterialCommunityIcons name="view-list-outline" size={20} color="#A7AFF4" /> :
-                    <MaterialCommunityIcons name="map-legend" size={20} color="#A7AFF4" />
+                    <MaterialCommunityIcons name="view-list-outline" size={30} color="#A7AFF4" /> :
+                    <MaterialCommunityIcons name="map-legend" size={30} color="#A7AFF4" />
                 }
 
             </Pressable>
@@ -61,16 +63,25 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
         paddingBottom: 15
     },
+    closeNavigation: {
+        height: 32,
+        aspectRatio: 1,
+        marginLeft: 16,
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center"
+    },
     bottomOptions: {
         position: "absolute",
         bottom: 0,
         right: 0,
-        padding: 15,
+        padding: 16,
         zIndex: 2,
         display: "flex",
         flexDirection: "column-reverse",
         alignItems: "center",
-        gap: 15,
+        gap: 16,
     },
     currentLocation: {
         width: "100%",
@@ -84,12 +95,11 @@ const styles = StyleSheet.create({
     },
     currentDistance: {
         flex: 1,
-        justifyContent: "space-between",
         flexDirection: "row",
         alignItems: "center"
     },
     currentAddress: {
-
+        flex: 1,
     },
     currentMiles: {
         fontWeight: "bold",

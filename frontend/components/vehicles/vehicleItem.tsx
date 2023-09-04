@@ -6,34 +6,38 @@ const VehicleItem = ({ vehicle, navigation }) => {
     const charger = chargers.find(charger => charger.id === vehicle.item.chargerId)
 
     return (
-        <Pressable onPress={() => navigation.navigate("My Vehicle", {vehicle: vehicle})} style={styles.vehicleItem}>
+        <Pressable onPress={() => navigation.navigate("My Vehicle", {vehicle: vehicle})} style={item.vehicleItem}>
             <View>
-                <Text style={styles.vehicleName}>{vehicle.item.name}</Text>
-                <Text>{vehicle.item.year} {vehicle.item.make} {vehicle.item.model}</Text>
+                <Text style={item.vehicleName}>{vehicle.item.name}</Text>
+                <Text style={item.vehicleDetails}>{vehicle.item.year} {vehicle.item.make} {vehicle.item.model}</Text>
             </View>
-            <View>
-                <Text>{charger.name}</Text>
-                <View style={styles.chargerImage}></View>
+            <View style={item.chargerInfo}>
+                <View style={item.chargerImage}></View>
+                <Text style={item.chargerText}>{charger.name}</Text>
             </View>
         </Pressable>
     )
 }
 
 
-const styles = StyleSheet.create({
+ const item = StyleSheet.create({
     vehicleItem: {
-        borderColor: "#c4c4c4",
-        borderWidth: 1,
-        padding: 15,
+        borderBottomColor: "rgba(255,255,255,.10)",
+        borderBottomWidth: 1,
+        paddingVertical: 16,
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginBottom: 15,
         borderRadius: 5
     },
+    vehicleDetails: {
+        color: "white"
+    },
     vehicleName: {
-        fontWeight: "bold"
+        fontWeight: "bold",
+        color: "white",
+        fontSize: 18
     },
     vehicleCharger: {
         display: 'flex',
@@ -44,8 +48,19 @@ const styles = StyleSheet.create({
     chargerImage: {
         height: 40,
         aspectRatio: 1,
-        backgroundColor: '#c4c4c4',
-        borderRadius: 40
+        borderColor: "#A7AFF4",
+        borderWidth: 4,
+        borderRadius: 40,
+    },
+    chargerInfo: {
+        alignItems: "center",
+        flexDirection: "row",
+        width: 150,
+        gap: 16
+    },
+    chargerText: {
+        color: "white",
+        maxHeight: 50
     }
 })
 export default VehicleItem

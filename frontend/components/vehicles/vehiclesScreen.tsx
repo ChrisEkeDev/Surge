@@ -2,6 +2,8 @@ import React from 'react'
 import { View, Text, StyleSheet, FlatList, Pressable } from 'react-native'
 import { useApp } from '../../context/appContext';
 import VehicleItem from './vehicleItem';
+import { pressables } from '../../styles/Pressables';
+import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 const VehiclesScreen = ({ navigation }) => {
   const { myVehicles} = useApp();
@@ -13,13 +15,15 @@ const VehiclesScreen = ({ navigation }) => {
         normalizedVehicles.length > 0 ?
         <FlatList style={styles.list} data={normalizedVehicles} renderItem={(item) => <VehicleItem vehicle={item} navigation={navigation}/>}/> :
         <View style={styles.noVehiclesContainer}>
-          <View style={styles.noVehiclesImage}></View>
+          <MaterialCommunityIcons style={styles.noVehiclesIcon} name="car-off" size={32} color="#A7AFF4"/>
           <Text style={styles.noVehiclesText}>No Vehicles Yet</Text>
         </View>
       }
-      <Pressable style={styles.button} onPress={() => navigation.navigate("Add Vehicle")}>
-          <Text style={styles.buttonText}>Add Vehicle</Text>
-      </Pressable>
+      <View  style={styles.bottomOptions}>
+        <Pressable style={pressables.iconButton} onPress={() => navigation.navigate("Add Vehicle")}>
+            <MaterialCommunityIcons name="plus" size={30} color="#A7AFF4"/>
+        </Pressable>
+      </View>
     </View>
   )
 }
@@ -27,23 +31,26 @@ const VehiclesScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
     screenContainer: {
       flex: 1,
-      backgroundColor: '#fff',
+      backgroundColor: '#1D1F40',
       alignItems: 'center',
-      padding: 15,
+      paddingHorizontal: 16,
       paddingBottom: 70
     },
     list: {
         width: '100%'
     },
-    button: {
-      backgroundColor: "#000",
-      paddingHorizontal: 15,
-      paddingVertical: 15,
-      borderRadius: 5,
-      width: '100%',
-      textAlign: 'center'
+    bottomOptions: {
+      position: "absolute",
+        bottom: 0,
+        right: 0,
+        padding: 16,
+        zIndex: 2,
+        display: "flex",
+        flexDirection: "column-reverse",
+        alignItems: "center",
+        gap: 16,
     },
-    buttonText: {
+    iconButton: {
       fontWeight: "bold",
       color: "#fff",
       textAlign: 'center'
@@ -52,15 +59,16 @@ const styles = StyleSheet.create({
       display: 'flex',
       justifyContent: "center",
       alignItems: "center",
-      borderRadius: 10,
-      borderWidth: 1,
-      borderColor: "#c4c4c4",
       width: '100%',
       marginBottom: 15,
-      padding: 30
+      paddingVertical: 32,
+      paddingHorizontal: 60
+    },
+    noVehiclesIcon: {
+        marginBottom: 16
     },
     noVehiclesText: {
-
+      color: "rgba(255,255,255,.5)"
     },
     noVehiclesImage: {
       height: 40,

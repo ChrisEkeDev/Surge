@@ -34,7 +34,7 @@ const SettingsScreen = ({ navigation }) => {
             </Pressable>
             <Pressable style={styles.button}>
                 <View style={styles.settingLabel}>
-                <MaterialCommunityIcons name="logout-variant" size={24} color="#A7AFF4" />
+                    <MaterialCommunityIcons name="logout-variant" size={24} color="#A7AFF4" />
                     <Text style={styles.buttonText}>Sign Out</Text>
                 </View>
             </Pressable>

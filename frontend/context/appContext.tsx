@@ -1,5 +1,6 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { Vehicle, Location } from '../models';
+import { vehicles } from '../models';
 
 type Context = {
     saveVehicle: (vehicle: Vehicle) => void;
@@ -23,9 +24,11 @@ const AppProvider = ({children}) => {
     const [ view, setView ] = useState('map');
     const [ locationsOn, setLocationsOn ] = useState(true);
     const [ currentLocation, setCurrentLocation ] = useState(null)
+    console.log(myVehicles)
 
     const saveVehicle = (vehicle: Vehicle) => {
-        setMyVehicles({...myVehicles, [vehicle.id]: vehicle})
+        const newState = { ...myVehicles, [vehicle.id]: vehicle };
+        setMyVehicles(newState)
     }
 
     const editVehicle = (vehicle: Vehicle) => {
@@ -39,6 +42,18 @@ const AppProvider = ({children}) => {
         delete newState[id]
         setMyVehicles(newState)
     }
+
+    const initState = () => {
+        const obj = {};
+        for (let i = 0; i < vehicles.length; i++) {
+            obj[vehicles[i].id] = vehicles[i]
+        }
+        setMyVehicles(obj)
+    }
+
+    useEffect(() => {
+        initState()
+    }, [])
 
     return (
         <AppContext.Provider value={{

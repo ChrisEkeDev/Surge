@@ -1,52 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useApp } from '../../context/appContext';
-import { View, Text, StyleSheet, Pressable, Modal } from 'react-native';
+import { View, Text, StyleSheet, Pressable, TextInput } from 'react-native';
+import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 const SettingsProfile = ({ navigation }) => {
-    const [ deleting, setDeleting ] = useState(false);
+
     return  (
         <View style={styles.screenContainer}>
-            <Modal
-            animationType="slide"
-            transparent={true}
-            visible={deleting}
-            onRequestClose={() => setDeleting(false)}
-            >
-                <View style={styles.modalContainer}>
-              <View style={styles.iconImage}></View>
-              <Text style={styles.modalTitle}>Are you sure you want to delete this account?</Text>
-              <View style={styles.buttonContainer}>
-                <Pressable style={styles.buttonPrimary} >
-                  <Text style={styles.buttonPrimaryText}>Delete Vehicle</Text>
-                </Pressable>
-                <Pressable style={styles.buttonSecondary} onPress={() => setDeleting(false)}>
-                  <Text style={styles.buttonSecondaryText}>Keep Vehicle</Text>
-                </Pressable>
-              </View>
-            </View>
-            </Modal>
             <View style={styles.detailItem}>
-                <Text>First Name</Text>
-                <Text style={styles.detailInfo}>First Name</Text>
+                <Text style={styles.detailLabel}>Username</Text>
+                <Text style={styles.detailInfo}>Username</Text>
             </View>
           <View style={styles.detailItem}>
-            <Text>Last Name</Text>
-            <Text style={styles.detailInfo}>Last Name</Text>
-          </View>
-          <View style={styles.detailItem}>
-            <Text>Email</Text>
+            <Text style={styles.detailLabel}>Email</Text>
             <Text style={styles.detailInfo}>Email</Text>
           </View>
           <View style={styles.detailItem}>
-            <Text>Password</Text>
-            <Text style={styles.detailInfo}>Password</Text>
+            <Text style={styles.detailLabel}>Password</Text>
+            <TextInput editable={false} selectTextOnFocus={false} value="password" secureTextEntry={true} style={styles.detailInfo}/>
           </View>
           <View style={styles.buttonContainer}>
-            <Pressable onPress={() => navigation.navigate("Edit Profile")} style={styles.buttonPrimary}>
-              <Text style={styles.buttonPrimaryText}>Edit Profile</Text>
+            <Pressable onPress={() => navigation.navigate("Edit Profile")} style={styles.button}>
+              <View style={styles.settingLabel}>
+                <MaterialCommunityIcons name="account-edit-outline" size={24} color="#A7AFF4" />
+                <Text style={styles.buttonText}>Edit Profile</Text>
+              </View>
+              <View>
+                    <MaterialIcons name="chevron-right" size={24} color="#353766" />
+              </View>
             </Pressable>
-            <Pressable onPress={() => setDeleting(true)} style={styles.buttonSecondary}>
-              <Text style={styles.buttonSecondaryText}>Delete Profile</Text>
+            <Pressable onPress={() => navigation.navigate("Delete Profile")} style={styles.button}>
+              <View style={styles.settingLabel}>
+                <MaterialCommunityIcons name="account-cancel-outline" size={24} color="#FF5252" />
+                <Text style={styles.buttonText}>Delete Profile</Text>
+              </View>
+              <View>
+                    <MaterialIcons name="chevron-right" size={24} color="#353766" />
+              </View>
             </Pressable>
           </View>
         </View>
@@ -56,74 +46,57 @@ const SettingsProfile = ({ navigation }) => {
 const styles = StyleSheet.create({
     screenContainer: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#1D1F40',
         alignItems: 'center',
-        padding: 15,
+        paddingHorizontal: 16,
         paddingBottom: 70
     },
     modalContainer: {
         flex: 1,
         display: 'flex',
         justifyContent: 'center',
-        backgroundColor: '#fff',
+        backgroundColor: 'rgba(0,0,0,.25)',
         alignItems: 'center',
         width: '100%',
-        padding: 15
+        padding: 16
+      },
+
+      modalContents: {
+        backgroundColor: "#1D1F40",
+        width: "100%",
+        borderRadius: 5,
+        padding: 16,
+        elevation: 5,
+        shadowColor: "rgba(0,0,0,.5)"
       },
     modalTitle: {
         marginBottom: 15,
         fontWeight: 'bold'
       },
-    buttonSecondary: {
-        backgroundColor: "#c4c4c4",
-        padding: 15,
-        borderRadius: 5,
-        width: '100%',
-        fontWeight: 'bold',
-        textAlign: 'center',
+      settingLabel: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: 16
       },
-    buttonSecondaryText: {
-        fontWeight: 'bold',
-        color: '#000',
-        textAlign: 'center'
-      },
+    buttonText: {
+      color: "white"
+    },
     buttonContainer: {
         width: '100%',
         display: "flex",
-        gap: 15
+        marginVertical: 48,
+        borderTopColor: "rgba(255,255,255,.10)",
+        borderTopWidth: 1,
       },
     button: {
-        width: '100%',
-        padding: 15,
-        borderColor: "#c4c4c4",
-        borderWidth: 1,
-        display: 'flex',
-        alignItems: 'center',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginBottom: 15,
-        borderRadius: 5
-    },
-    toggleContainer: {
-        width: 50,
-        height: 20,
-        borderRadius: 20,
-        borderWidth: 1,
-        borderColor: "#c4c4c4"
-    },
-    toggleNode: {
-        height: 20,
-        aspectRatio: 1,
-        borderRadius: 20,
-        position: "absolute",
-    },
-    toggleActive: {
-        right: 0,
-        backgroundColor: "#000"
-    },
-    toggleInactive: {
-        right: 0,
-        backgroundColor: "#c4c4c4"
+      width: '100%',
+      paddingVertical: 16,
+      borderBottomColor: "rgba(255,255,255,.10)",
+      borderBottomWidth: 1,
+      display: 'flex',
+      alignItems: 'center',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
     },
     iconImage: {
         height: 40,
@@ -145,20 +118,23 @@ const styles = StyleSheet.create({
         color: '#fff',
         textAlign: 'center'
       },
+      detailLabel: {
+        color: "#A7AFF4"
+      },
     detailInfo: {
-        fontWeight: "bold"
+        color: "white",
+        fontSize: 16,
+        textAlign: "right"
       },
     detailItem: {
         width: '100%',
-        padding: 15,
-        borderColor: "#c4c4c4",
-        borderWidth: 1,
+        paddingVertical: 16,
+        borderBottomWidth: 1,
+        borderBottomColor: "rgba(255,255,255,.10)",
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginBottom: 15,
-        borderRadius: 5
     }
 })
 

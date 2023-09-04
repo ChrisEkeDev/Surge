@@ -1,51 +1,15 @@
 import React, { useState } from 'react';
 import { chargers } from '../../models';
-import { useApp } from '../../context/appContext';
 import { View, Text, StyleSheet, Pressable, Modal } from 'react-native'
+import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 const VehicleDetailsScreen = ({ route, navigation }) => {
-    const [ deleting, setDeleting ] = useState(false);
     const { vehicle } = route.params;
-    const { deleteVehicle } = useApp();
     const charger = chargers.find(charger => charger.id === vehicle.item.chargerId)
 
 
-    const handleDelete = (id: number) => {
-      deleteVehicle(id);
-      navigation.navigate("Vehicles")
-    }
-
     return (
       <View  style={styles.screenContainer}>
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={deleting}
-            onRequestClose={() => setDeleting(false)}
-          >
-            <View style={styles.modalContainer}>
-              <View style={styles.iconImage}></View>
-              <Text style={styles.modalTitle}>Are you sure you want to delete this vehicle?</Text>
-              <View style={styles.vehicleItem}>
-                <View style={styles.vehicleInfo}>
-                  <Text style={styles.vehicleName}>{vehicle.item.name}</Text>
-                  <Text style={styles.vehicleDetails}>{vehicle.item.year} {vehicle.item.make} {vehicle.item.model}</Text>
-                </View>
-                <View style={styles.vehicleCharger}>
-                    <Text style={styles.chargerName}>{charger.name}</Text>
-                    <View style={styles.chargerImage}></View>
-                </View>
-              </View>
-              <View style={styles.buttonContainer}>
-                <Pressable style={styles.buttonPrimary} onPress={() => handleDelete(vehicle.item.id)}>
-                  <Text style={styles.buttonPrimaryText}>Delete Vehicle</Text>
-                </Pressable>
-                <Pressable style={styles.buttonSecondary} onPress={() => setDeleting(false)}>
-                  <Text style={styles.buttonSecondaryText}>Keep Vehicle</Text>
-                </Pressable>
-              </View>
-            </View>
-          </Modal>
           <View style={styles.detailItem}>
             <Text style={styles.detailLabel}>Make</Text>
             <Text style={styles.detailInfo}>{vehicle.item.name}</Text>
@@ -63,11 +27,23 @@ const VehicleDetailsScreen = ({ route, navigation }) => {
             <Text style={styles.chargerLabel}>{charger.name}</Text>
           </View>
           <View style={styles.buttonContainer}>
-            <Pressable onPress={() => navigation.navigate("Edit Vehicle", {vehicle: vehicle})} style={styles.buttonPrimary}>
-              <Text style={styles.buttonPrimaryText}>Edit Vehicle</Text>
+            <Pressable onPress={() => navigation.navigate("Edit Vehicle", {vehicle: vehicle})} style={styles.button}>
+              <View style={styles.settingLabel}>
+              <MaterialCommunityIcons name="circle-edit-outline" size={24} color="#A7AFF4" />
+                <Text style={styles.buttonText}>Edit Vehicle</Text>
+              </View>
+              <View>
+                    <MaterialIcons name="chevron-right" size={24} color="#353766" />
+              </View>
             </Pressable>
-            <Pressable onPress={() => setDeleting(true)} style={styles.buttonSecondary}>
-              <Text style={styles.buttonSecondaryText}>Delete Vehicle</Text>
+            <Pressable  onPress={() => navigation.navigate("Delete Vehicle", {vehicle: vehicle})} style={styles.button}>
+              <View style={styles.settingLabel}>
+              <MaterialCommunityIcons name="trash-can-outline" size={24} color="#FF5252" />
+              <Text style={styles.buttonText}>Delete Vehicle</Text>
+              </View>
+              <View>
+                    <MaterialIcons name="chevron-right" size={24} color="#353766" />
+              </View>
             </Pressable>
           </View>
       </View>
@@ -77,56 +53,55 @@ const VehicleDetailsScreen = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#1D1F40',
     alignItems: 'center',
-    padding: 15,
+    paddingHorizontal: 16,
   },
-  modalContainer: {
-    flex: 1,
-    display: 'flex',
-    justifyContent: 'center',
-    backgroundColor: '#fff',
-    alignItems: 'center',
+  settingLabel: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 16
+  },
+  buttonContainer: {
     width: '100%',
-    padding: 15
-  },
-  modalTitle: {
-    marginBottom: 15,
-    fontWeight: 'bold'
+    display: "flex",
+    marginVertical: 48,
+    borderTopColor: "rgba(255,255,255,.10)",
+    borderTopWidth: 1,
   },
   detailItem: {
     width: '100%',
-    padding: 15,
-    borderColor: "#c4c4c4",
-    borderWidth: 1,
+    paddingVertical: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: "rgba(255,255,255,.10)",
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 15,
-    borderRadius: 5
   },
   detailLabel: {
-
+    color: "#A7AFF4"
   },
   detailInfo: {
-    fontWeight: "bold"
+    color: "white",
+    fontSize: 16,
+    textAlign: "right"
   },
   chargerItem: {
     width: '100%',
-    padding: 15,
-    borderColor: "#c4c4c4",
-    borderWidth: 1,
+    paddingVertical: 16,
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'row',
-    borderRadius: 5,
-    gap: 15,
+    borderBottomColor: "rgba(255,255,255,.10)",
+    borderBottomWidth: 1,
+    gap: 16,
   },
   chargerImage: {
     height: 40,
     aspectRatio: 1,
-    backgroundColor: '#c4c4c4',
+    borderColor: "#A7AFF4",
+    borderWidth: 4,
     borderRadius: 40
   },
   iconImage: {
@@ -137,37 +112,20 @@ const styles = StyleSheet.create({
     borderRadius: 40
   },
   chargerLabel: {
-
+    color: "white"
   },
-  buttonContainer: {
+  buttonText: {
+    color: "white"
+  },
+  button: {
     width: '100%',
-  },
-  buttonPrimary: {
-    backgroundColor: '#000',
-    paddingHorizontal: 15,
-    paddingVertical: 15,
-    borderRadius: 5,
-    width: '100%',
-    textAlign: 'center',
-  },
-  buttonPrimaryText: {
-    fontWeight: 'bold',
-    color: '#fff',
-    textAlign: 'center'
-  },
-  buttonSecondary: {
-    backgroundColor: "#c4c4c4",
-    paddingHorizontal: 15,
-    paddingVertical: 15,
-    borderRadius: 5,
-    width: '100%',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  buttonSecondaryText: {
-    fontWeight: 'bold',
-    color: '#000',
-    textAlign: 'center'
+    paddingVertical: 16,
+    borderBottomColor: "rgba(255,255,255,.10)",
+    borderBottomWidth: 1,
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   vehicleItem: {
     borderColor: "#c4c4c4",
