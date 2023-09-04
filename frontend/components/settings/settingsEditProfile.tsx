@@ -18,7 +18,7 @@ const SettingsEditProfile = ({ navigation }) => {
     return (
         <ScrollView contentContainerStyle={styles.screenContainer}>
             <View style={styles.inputContainer}>
-                <MaterialCommunityIcons name='account-outline' size={24} color="#A7AFF4"/>
+                <MaterialCommunityIcons name='account-outline' size={20} color="#A7AFF4"/>
                 <View style={styles.inputContents}>
                     <TextInput
                         style={styles.textInput}
@@ -29,13 +29,13 @@ const SettingsEditProfile = ({ navigation }) => {
                     />
                     {
                         user.username !== username ?
-                        <MaterialCommunityIcons style={styles.textIcon} name="alert-circle-outline" size={24} color="#FF5252"/> :
+                        <MaterialCommunityIcons style={styles.textIcon} name="alert-circle-outline" size={20} color="#FF5252"/> :
                         null
                     }
                 </View>
             </View>
             <View style={styles.inputContainer}>
-                <MaterialCommunityIcons name='email-outline' size={24} color="#A7AFF4"/>
+                <MaterialCommunityIcons name='email-outline' size={20} color="#A7AFF4"/>
                 <View style={styles.inputContents}>
                     <TextInput
                         style={styles.textInput}
@@ -46,13 +46,13 @@ const SettingsEditProfile = ({ navigation }) => {
                     />
                     {
                         user.email !== email ?
-                        <MaterialCommunityIcons style={styles.textIcon} name="alert-circle-outline" size={24} color="#FF5252"/> :
+                        <MaterialCommunityIcons style={styles.textIcon} name="alert-circle-outline" size={20} color="#FF5252"/> :
                         null
                     }
                 </View>
             </View>
             <View style={styles.inputContainer}>
-                <MaterialCommunityIcons name='form-textbox-password' size={24} color="#A7AFF4"/>
+                <MaterialCommunityIcons name='form-textbox-password' size={20} color="#A7AFF4"/>
                 <View style={styles.inputContents}>
                     <TextInput
                         style={styles.textInput}
@@ -64,13 +64,13 @@ const SettingsEditProfile = ({ navigation }) => {
                     />
                     {
                         "" !== password ?
-                        <MaterialCommunityIcons style={styles.textIcon} name="alert-circle-outline" size={24} color="#FF5252"/> :
+                        <MaterialCommunityIcons style={styles.textIcon} name="alert-circle-outline" size={20} color="#FF5252"/> :
                         null
                     }
                 </View>
             </View>
             <View style={styles.inputContainer}>
-                <MaterialCommunityIcons name='form-textbox-password' size={24} color="#A7AFF4"/>
+                <MaterialCommunityIcons name='form-textbox-password' size={20} color="#A7AFF4"/>
                 <View style={styles.inputContents}>
                     <TextInput
                         style={styles.textInput}
@@ -84,7 +84,7 @@ const SettingsEditProfile = ({ navigation }) => {
             </View>
             <View style={styles.actionsContainer}>
                 <Pressable onPress={() => navigation.goBack(null)} style={styles.actionButton}>
-                    <MaterialCommunityIcons name='checkbox-marked-circle-outline' size={24} color="#50A85E" />
+                    <MaterialCommunityIcons name='checkbox-marked-circle-outline' size={20} color="#50A85E" />
                     <Text style={styles.actionButtonText}>Confirm</Text>
                 </Pressable>
             </View>

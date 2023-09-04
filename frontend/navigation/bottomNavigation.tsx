@@ -2,6 +2,16 @@ import { StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { CarsNavigator, StationsNavigator, SettingsNavigator } from './Navigators';
+import { TransitionSpecs, HeaderStyleInterpolators } from '@react-navigation/stack';
+
+const MyTransition = {
+  gestureDirection: 'horizontal',
+  transitionSpec: {
+    open: TransitionSpecs.TransitionIOSSpec,
+    close: TransitionSpecs.TransitionIOSSpec,
+  },
+  headerStyleInterpolator: HeaderStyleInterpolators.forFade,
+}
 
   const Tab = createBottomTabNavigator();
 
@@ -12,9 +22,9 @@ const BottomNavigation = () => {
             backBehavior='order'
             sceneContainerStyle={styles.container}
             screenOptions={{
+                ...MyTransition,
                 tabBarStyle: styles.tabBar,
                 tabBarLabelStyle: styles.tabLabel,
-                tabBarShowLabel: false,
                 tabBarActiveTintColor: "#353766",
                 tabBarHideOnKeyboard: true,
                 headerShown: false
@@ -25,9 +35,9 @@ const BottomNavigation = () => {
                     title: "Vehicles",
                     tabBarIcon: (tabInfo) => {
                         if (tabInfo.focused) {
-                            return <MaterialIcons name='electric-car' size={32} color="#353766"/>
+                            return <MaterialIcons name='electric-car' size={24} color="#353766"/>
                         } else {
-                            return <MaterialCommunityIcons name='car-electric-outline' size={32} color="#c4c4c4"/>
+                            return <MaterialCommunityIcons name='car-electric-outline' size={24} color="#c4c4c4"/>
                         }
                     }
                 }}
@@ -36,11 +46,12 @@ const BottomNavigation = () => {
             />
             <Tab.Screen
                 options={{
+                    title: "Charging Stations",
                     tabBarIcon: (tabInfo) => {
                         if (tabInfo.focused) {
-                            return <MaterialCommunityIcons name='map-search' size={32} color="#353766"/>
+                            return <MaterialCommunityIcons name='map-search' size={24} color="#353766"/>
                         } else {
-                            return <MaterialCommunityIcons name='map-search-outline' size={32}   color="#c4c4c4"/>
+                            return <MaterialCommunityIcons name='map-search-outline' size={24}   color="#c4c4c4"/>
                         }
                     }
                 }}
@@ -49,11 +60,12 @@ const BottomNavigation = () => {
             />
             <Tab.Screen
                 options={{
+                    title: "Settings",
                     tabBarIcon: (tabInfo) => {
                         if (tabInfo.focused) {
-                            return <MaterialIcons name='settings' size={32}  color="#353766"/>
+                            return <MaterialIcons name='settings' size={24}  color="#353766"/>
                         } else {
-                            return <MaterialCommunityIcons name='cog-outline' size={32}  color="#c4c4c4"/>
+                            return <MaterialCommunityIcons name='cog-outline' size={24}  color="#c4c4c4"/>
                         }
                     }
                 }}
@@ -67,11 +79,14 @@ const BottomNavigation = () => {
 const styles = StyleSheet.create({
     tabBar: {
         height: 75,
+        paddingBottom: 16
         // padding: 15
     },
     tabLabel: {
         fontSize: 15,
-        marginBottom: 12
+        marginBottom: 16,
+        position: "absolute",
+        bottom: -16
     },
     tabBarLabel: {
 

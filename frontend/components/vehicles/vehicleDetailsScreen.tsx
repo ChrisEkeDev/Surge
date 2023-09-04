@@ -29,20 +29,20 @@ const VehicleDetailsScreen = ({ route, navigation }) => {
           <View style={styles.buttonContainer}>
             <Pressable onPress={() => navigation.navigate("Edit Vehicle", {vehicle: vehicle})} style={styles.button}>
               <View style={styles.settingLabel}>
-              <MaterialCommunityIcons name="circle-edit-outline" size={24} color="#A7AFF4" />
+              <MaterialCommunityIcons name="circle-edit-outline" size={20} color="#A7AFF4" />
                 <Text style={styles.buttonText}>Edit Vehicle</Text>
               </View>
               <View>
-                    <MaterialIcons name="chevron-right" size={24} color="#353766" />
+                    <MaterialIcons name="chevron-right" size={20} color="#353766" />
               </View>
             </Pressable>
             <Pressable  onPress={() => navigation.navigate("Delete Vehicle", {vehicle: vehicle})} style={styles.button}>
               <View style={styles.settingLabel}>
-              <MaterialCommunityIcons name="trash-can-outline" size={24} color="#FF5252" />
+              <MaterialCommunityIcons name="trash-can-outline" size={20} color="#FF5252" />
               <Text style={styles.buttonText}>Delete Vehicle</Text>
               </View>
               <View>
-                    <MaterialIcons name="chevron-right" size={24} color="#353766" />
+                    <MaterialIcons name="chevron-right" size={20} color="#353766" />
               </View>
             </Pressable>
           </View>

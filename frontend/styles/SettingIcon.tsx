@@ -1,13 +1,13 @@
 import { Pressable, Text, View, TextInput, StyleSheet} from "react-native";
 import React, { useState } from 'react';
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-export default function Logo({icon}) {
+export default function SettingIcon() {
 
 
     return (
         <Pressable style={back.container}>
-            {icon}
+            <MaterialCommunityIcons name='cog-outline' size={20}  color="white"/>
         </Pressable>
     )
 }
@@ -18,7 +18,6 @@ export const back = StyleSheet.create({
         width: 24,
         justifyContent: "center",
         alignItems: "center",
-        paddingLeft: 30,
         marginRight: 8
     },
 })

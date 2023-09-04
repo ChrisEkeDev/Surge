@@ -7,6 +7,6 @@ export const elements = StyleSheet.create({
     },
     headerTitle: {
         color: "white",
-        fontWeight: "normal"
+        fontWeight: "bold"
     }
 })

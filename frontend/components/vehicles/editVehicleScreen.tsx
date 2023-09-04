@@ -89,7 +89,7 @@ const EditVehicleScreen = ({ route, navigation }) => {
           renderItem={(item) => <ChargerItem navigation={navigation} select={setChargerId} id={chargerId} charger={item}/>} />
         <View style={styles.actionsContainer}>
             <Pressable onPress={() => handleEdit()} style={styles.actionButton}>
-                <MaterialCommunityIcons name='checkbox-marked-circle-outline' size={24} color="#50A85E" />
+                <MaterialCommunityIcons name='checkbox-marked-circle-outline' size={20} color="#50A85E" />
                 <Text style={styles.actionButtonText}>Confirm</Text>
             </Pressable>
         </View>

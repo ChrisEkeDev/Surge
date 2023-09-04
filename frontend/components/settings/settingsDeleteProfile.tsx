@@ -10,14 +10,14 @@ const SettingsDeleteProfile = ({ navigation }) => {
     }
     return (
         <ScrollView contentContainerStyle={styles.screenContainer}>
-          <MaterialCommunityIcons name="account-alert-outline" size={48} color="#A7AFF4"/>
+          <MaterialCommunityIcons name="account-alert-outline" size={32} color="#A7AFF4"/>
             <View style={styles.message}>
               <Text style={styles.messageHeader}>Are you sure you want to delete this profile?</Text>
               <Text style={styles.messageText}>This action is irreversible.</Text>
             </View>
             <View style={styles.actionsContainer}>
                 <Pressable onPress={() => navigation.goBack(null)} style={styles.actionButton}>
-                    <MaterialCommunityIcons name="trash-can-outline" size={24} color="#FF5252"/>
+                    <MaterialCommunityIcons name="trash-can-outline" size={20} color="#FF5252"/>
                     <Text style={styles.actionButtonText}>Delete Profile</Text>
                 </Pressable>
             </View>

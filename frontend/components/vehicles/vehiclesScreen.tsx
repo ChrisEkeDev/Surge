@@ -21,7 +21,7 @@ const VehiclesScreen = ({ navigation }) => {
       }
       <View  style={styles.bottomOptions}>
         <Pressable style={pressables.iconButton} onPress={() => navigation.navigate("Add Vehicle")}>
-            <MaterialCommunityIcons name="plus" size={30} color="#A7AFF4"/>
+            <MaterialCommunityIcons name="plus" size={20} color="#A7AFF4"/>
         </Pressable>
       </View>
     </View>

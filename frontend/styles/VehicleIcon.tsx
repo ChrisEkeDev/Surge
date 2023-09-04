@@ -1,16 +1,13 @@
 import { Pressable, Text, View, TextInput, StyleSheet} from "react-native";
 import React, { useState } from 'react';
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-export default function Back({navigation}) {
+export default function VehicleIcon() {
 
-    const handleBack = () => {
-        navigation.goBack(null)
-    }
 
     return (
-        <Pressable style={back.container} onPress={handleBack}>
-            <MaterialIcons name="chevron-left" size={20} color="#A7AFF4"/>
+        <Pressable style={back.container}>
+             <MaterialCommunityIcons name='car-electric-outline' size={20}  color="white"/>
         </Pressable>
     )
 }

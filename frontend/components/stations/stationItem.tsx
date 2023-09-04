@@ -16,14 +16,13 @@ const StationItem = ({station, navigation}) => {
   return (
     <View style={styles.stationItem}>
         <View style={styles.stationInfo}>
-            {/* <MaterialIcons name="bolt" size={24} color="#EAC501" /> */}
             <View>
               <Text style={styles.stationName}>{station.item.name}</Text>
               <Text style={styles.stationAddress}>{station.item.address}</Text>
             </View>
         </View>
         <Pressable onPress={() => getDirections(station.item)} style={styles.navigateButton}>
-          <MaterialCommunityIcons name='navigation-variant-outline' size={24} color="#A7AFF4"/>
+          <MaterialCommunityIcons name='navigation-variant-outline' size={20} color="#A7AFF4"/>
           <Text style={styles.stationDistance}>{station.item.distance} mi</Text>
         </Pressable>
     </View>
@@ -55,18 +54,16 @@ const styles = StyleSheet.create({
       color: "white"
     },
     navigateButton: {
-      height: 48,
-      aspectRatio: 1,
-      alignItems: "center",
-      justifyContent: "center"
+      alignItems: "flex-end"
     },
     navigationIcon: {
       marginBottom: 2
     },
     stationDistance: {
-      fontSize: 15,
+      fontSize: 18,
       fontWeight: "bold",
-      color: "white"
+      color: "white",
+      textAlign: "right"
     }
 })
 export default StationItem;

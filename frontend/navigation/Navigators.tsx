@@ -17,9 +17,12 @@ import { Pressable, Text, View, TextInput} from "react-native";
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import SearchBar from "../styles/Search";
 import Back from "../styles/Back"
-import Logo from "../styles/Logo";
+import Logo from "../styles/VehicleIcon";
 import { elements } from "../styles/Elements";
 import DeleteVehicleScreen from "../components/vehicles/settingsDeleteVehicle";
+import VehicleIcon from "../styles/VehicleIcon";
+import SettingIcon from "../styles/SettingIcon";
+import MapIcon from "../styles/MapIcon";
 //
 const Stack = createNativeStackNavigator();
 
@@ -32,6 +35,7 @@ const StationsNavigator = () => {
                 options={{
                     title: ' ',
                     headerStyle: elements.header,
+                    headerLeft: () => <MapIcon/>,
                     headerRight: () => (
                         <SearchBar/>
                     )
@@ -52,7 +56,7 @@ const CarsNavigator = () => {
                     title: 'Vehicles',
                     headerStyle: elements.header,
                     headerTitleStyle: elements.headerTitle,
-                    headerLeft: () => <Logo icon={<MaterialCommunityIcons name='car-electric-outline' size={24}  color="white"/>} />
+                    headerLeft: () => <VehicleIcon/>
                 }} component={VehiclesScreen}/>
             <Stack.Screen name="My Vehicle" options={({route, navigation}) => ({
                     title: `Vehicle`,
@@ -91,7 +95,7 @@ const SettingsNavigator = () => {
                     title: 'Settings',
                     headerStyle: elements.header,
                     headerTitleStyle: elements.headerTitle,
-                    headerLeft: () => <Logo icon={<MaterialCommunityIcons name='cog-outline' size={24}  color="white"/>}/>
+                    headerLeft: () => <SettingIcon />
                 }}  component={SettingsScreen}/>
             <Stack.Screen name="Profile" options={({navigation}) => ({
                     title: 'Profile',

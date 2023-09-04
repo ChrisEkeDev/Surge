@@ -21,20 +21,22 @@ const StationsScreen = ({ navigation }) => {
         <>
         {
             view === 'map' ?
-            currentLocation ?
-            <View style={styles.currentLocation}>
-                <MaterialCommunityIcons name='navigation-variant-outline' size={24} color="#000"/>
-                <View style={styles.currentDistance}>
-                    <Text style={styles.currentAddress}>{currentLocation.address}</Text>
-                    <Text style={styles.currentMiles}>10 mi</Text>
-                    <Pressable onPress={() => setCurrentLocation(null)} style={styles.closeNavigation} >
-                        <MaterialIcons name="close"size={20} color="#FF5252"/>
-                    </Pressable>
-                </View>
-            </View> :
-            <View>
-                <Text>Showing Locations</Text>
-            </View>
+            <>
+            {
+                currentLocation ?
+                <View style={styles.currentLocation}>
+                    <MaterialCommunityIcons name='navigation-variant-outline' size={24} color="#000"/>
+                    <View style={styles.currentDistance}>
+                        <Text style={styles.currentAddress}>{currentLocation.address}</Text>
+                        <Text style={styles.currentMiles}>10 mi</Text>
+                        <Pressable onPress={() => setCurrentLocation(null)} style={styles.closeNavigation} >
+                            <MaterialIcons name="close"size={20} color="#FF5252"/>
+                        </Pressable>
+                    </View>
+                </View> :
+                null
+            }
+            </>
         :
             <View style={styles.listContainer}>
                 <FlatList style={styles.stationList} data={locations} renderItem={(item) => <StationItem station={item} navigation={navigation} />}/>
@@ -44,8 +46,8 @@ const StationsScreen = ({ navigation }) => {
             <Pressable onPress={handleView} style={pressables.iconButton}>
                 {
                     view === "map" ?
-                    <MaterialCommunityIcons name="view-list-outline" size={30} color="#A7AFF4" /> :
-                    <MaterialCommunityIcons name="map-legend" size={30} color="#A7AFF4" />
+                    <MaterialCommunityIcons name="format-list-bulleted" size={20} color="#A7AFF4" /> :
+                    <MaterialCommunityIcons name="map-legend" size={20} color="#A7AFF4" />
                 }
 
             </Pressable>
@@ -64,8 +66,6 @@ const styles = StyleSheet.create({
         paddingBottom: 15
     },
     closeNavigation: {
-        height: 32,
-        aspectRatio: 1,
         marginLeft: 16,
         display: "flex",
         flexDirection: "row",

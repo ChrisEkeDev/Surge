@@ -11,7 +11,6 @@ export default function SearchBar() {
     const [query, setQuery ] = useState("")
     return (
         <View style={search.searchContainer}>
-            <MaterialCommunityIcons style={search.searchIcon} name='map-search-outline' size={24}   color="white"/>
             <TextInput
                 value={query}
                 inputMode="search"
@@ -21,7 +20,7 @@ export default function SearchBar() {
                 onChangeText={(value) => setQuery(value)}
             />
             <Pressable style={search.searchButton}>
-            <MaterialCommunityIcons name="map-marker-radius-outline" size={24} color="#A7AFF4" />
+            <MaterialCommunityIcons name="map-marker-radius-outline" size={20} color="#A7AFF4" />
             </Pressable>
         </View>
     )
@@ -30,15 +29,12 @@ export default function SearchBar() {
 export const search = StyleSheet.create({
     searchContainer: {
         position: "absolute",
-        width: windowWidth,
-        right: 0,
+        width: windowWidth - 70,
+        right: 16,
         paddingHorizontal: 16,
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between"
-    },
-    searchIcon: {
-        marginRight: 14
     },
     searchInput: {
         fontSize: 18,

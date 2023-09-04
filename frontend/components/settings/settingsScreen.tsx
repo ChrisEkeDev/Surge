@@ -12,29 +12,29 @@ const SettingsScreen = ({ navigation }) => {
         <View style={styles.screenContainer}>
             <Pressable onPress={() => setLocationsOn(!locationsOn)} style={styles.button}>
                 <View style={styles.settingLabel}>
-                    <MaterialCommunityIcons name="map-marker-outline" size={24} color="#A7AFF4" />
+                    <MaterialCommunityIcons name="map-marker-outline" size={20} color="#A7AFF4" />
                     <Text style={styles.buttonText}>Location Services</Text>
                 </View>
                 <View>
                     {
                         locationsOn ?
-                        <MaterialIcons name="my-location" size={24} color="#A7AFF4"/> :
-                        <MaterialIcons name="location-disabled" size={24} color="#353766"/>
+                        <MaterialIcons name="my-location" size={20} color="#A7AFF4"/> :
+                        <MaterialIcons name="location-disabled" size={20} color="#353766"/>
                     }
                 </View>
             </Pressable>
             <Pressable onPress={() => navigation.navigate("Profile")} style={styles.button}>
                 <View style={styles.settingLabel}>
-                    <MaterialCommunityIcons name="account-outline" size={24} color="#A7AFF4" />
+                    <MaterialCommunityIcons name="account-outline" size={20} color="#A7AFF4" />
                     <Text style={styles.buttonText}>Profile</Text>
                 </View>
                 <View>
-                    <MaterialIcons name="chevron-right" size={24} color="#353766" />
+                    <MaterialIcons name="chevron-right" size={20} color="#353766" />
                 </View>
             </Pressable>
             <Pressable style={styles.button}>
                 <View style={styles.settingLabel}>
-                    <MaterialCommunityIcons name="logout-variant" size={24} color="#A7AFF4" />
+                    <MaterialCommunityIcons name="logout-variant" size={20} color="#A7AFF4" />
                     <Text style={styles.buttonText}>Sign Out</Text>
                 </View>
             </Pressable>

@@ -11,13 +11,13 @@ const borderShadow = {
 
 export const pressables = StyleSheet.create({
     iconButton: {
-        height: 55,
+        height: 48,
         aspectRatio: 1,
         backgroundColor: "#353766",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        borderRadius: 45,
+        borderRadius: 48,
         elevation: 2,
         shadowColor: "#1E1E28",
         right: 0,

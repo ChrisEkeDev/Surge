@@ -22,20 +22,20 @@ const SettingsProfile = ({ navigation }) => {
           <View style={styles.buttonContainer}>
             <Pressable onPress={() => navigation.navigate("Edit Profile")} style={styles.button}>
               <View style={styles.settingLabel}>
-                <MaterialCommunityIcons name="account-edit-outline" size={24} color="#A7AFF4" />
+                <MaterialCommunityIcons name="account-edit-outline" size={20} color="#A7AFF4" />
                 <Text style={styles.buttonText}>Edit Profile</Text>
               </View>
               <View>
-                    <MaterialIcons name="chevron-right" size={24} color="#353766" />
+                    <MaterialIcons name="chevron-right" size={20} color="#353766" />
               </View>
             </Pressable>
             <Pressable onPress={() => navigation.navigate("Delete Profile")} style={styles.button}>
               <View style={styles.settingLabel}>
-                <MaterialCommunityIcons name="account-cancel-outline" size={24} color="#FF5252" />
+                <MaterialCommunityIcons name="account-cancel-outline" size={20} color="#FF5252" />
                 <Text style={styles.buttonText}>Delete Profile</Text>
               </View>
               <View>
-                    <MaterialIcons name="chevron-right" size={24} color="#353766" />
+                    <MaterialIcons name="chevron-right" size={20} color="#353766" />
               </View>
             </Pressable>
           </View>

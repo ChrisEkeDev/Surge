@@ -32,7 +32,7 @@ const NewVehicleScreen = ({ navigation }) => {
   return (
     <ScrollView contentContainerStyle={styles.screenContainer}>
       <View style={styles.screenHeader}>
-        <MaterialIcons name="electric-car" size={24} color="#A7AFF4"/>
+        <MaterialIcons name="electric-car" size={20} color="#A7AFF4"/>
         <Text style={styles.formLabel}>Vehicle Information</Text>
       </View>
         <View style={styles.inputContainer}>
@@ -78,7 +78,7 @@ const NewVehicleScreen = ({ navigation }) => {
           </View>
         </View>
         <View style={styles.screenHeader}>
-          <MaterialIcons name="electrical-services" size={24} color="#A7AFF4"/>
+          <MaterialIcons name="electrical-services" size={20} color="#A7AFF4"/>
           <Text style={styles.formLabel}>Select a Charger</Text>
         </View>
         <FlatList
@@ -89,7 +89,7 @@ const NewVehicleScreen = ({ navigation }) => {
           renderItem={(item) => <ChargerItem navigation={navigation} select={setChargerId} id={chargerId} charger={item}/>} />
         <View style={styles.actionsContainer}>
             <Pressable onPress={submit} style={styles.actionButton}>
-                <MaterialCommunityIcons name='checkbox-marked-circle-outline' size={24} color="#50A85E" />
+                <MaterialCommunityIcons name='checkbox-marked-circle-outline' size={20} color="#50A85E" />
                 <Text style={styles.actionButtonText}>Confirm</Text>
             </Pressable>
         </View>
