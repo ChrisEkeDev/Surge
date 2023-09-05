@@ -10,9 +10,8 @@ import Button from '../../styles/Buttons';
 const DeleteVehicleScreen = ({ route, navigation }) => {
   const { deleteVehicle } = useApp();
   const { vehicle } = route.params;
-  console.log(route)
   const charger = chargers.find(charger => charger.id === vehicle?.item.chargerId)
-  console.log(vehicle)
+
   const handleDelete = (id: number) => {
     deleteVehicle(id);
     navigation.navigate("Vehicles")

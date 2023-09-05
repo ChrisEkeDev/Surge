@@ -32,7 +32,6 @@ const AppProvider = ({children}) => {
     const [ locationsOn, setLocationsOn ] = useState(true);
     const [ currentLocation, setCurrentLocation ] = useState(null);
     const [ user, setUser ] = useState(null)
-    console.log(myVehicles)
 
     const saveVehicle = (vehicle: Vehicle) => {
         const newState = { ...myVehicles, [vehicle.id]: vehicle };

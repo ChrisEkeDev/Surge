@@ -15,7 +15,7 @@ const StationsScreen = ({ navigation }) => {
         else setView('map')
     }
     const station = currentLocation;
-    console.log(stations)
+
 
     return (
         <>

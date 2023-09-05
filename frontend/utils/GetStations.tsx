@@ -1,7 +1,6 @@
 import axios from "axios";
 
 export const getStations = async (coords: {latitude: number, longitude: number}) => {
-    console.log(coords)
     const options = {
         method: 'GET',
         url: 'https://ev-charging-stations.p.rapidapi.com/get_stations_1km',
