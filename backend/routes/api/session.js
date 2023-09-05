@@ -61,14 +61,15 @@ router.delete("/", (_req, res) => {
 router.get("/", (req, res) => {
     const { user } = req;
 
-    const safeUser = {
-        id: user.id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email
-    }
-
     if (user) {
+
+        const safeUser = {
+            id: user.id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email
+        }
+
         return res.status(200).json({
             status: 200,
             message: "Session restored successfully",
