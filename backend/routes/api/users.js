@@ -52,6 +52,13 @@ const valiateEditUser = [
 
 router.patch('/:userId', requireAuth, valiateEditUser, async(req, res) => {
     const auth = req.user;
+    if (!auth) {
+        return res.status(403).json({
+            status: 403,
+            message: "You need to sign in to use the app",
+            data: null
+       })
+    }
     const { userId } = req.params;
     const { firstName, lastName, email, password } = req.body;
     const user = await User.findByPk(userId);
@@ -93,6 +100,13 @@ router.patch('/:userId', requireAuth, valiateEditUser, async(req, res) => {
 // Delete User
 router.delete('/:userId', requireAuth, async(req, res) => {
     const auth = req.user;
+    if (!auth) {
+        return res.status(403).json({
+            status: 403,
+            message: "You need to sign in to use the app",
+            data: null
+       })
+    }
     const { userId } = req.params;
     const user = await User.findByPk(userId)
     if (auth.id === user.id) {
