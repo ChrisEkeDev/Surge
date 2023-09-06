@@ -8,21 +8,22 @@ import Button from '../../styles/Buttons';
 import { buttons } from '../../styles/MasterStyles';
 import { User } from '../../models';
 import { useApp } from '../../context/appContext';
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
+import { setUser, clearUser } from '../../store/session';
+import { thunkSignIn } from '../../store/session';
+
 
 export default function SignIn({ navigation }) {
-    const { setUser } = useApp();
+    const user = useAppSelector((state) => state.session.user)
+    const dispatch = useAppDispatch()
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [errors, setErrors] = useState({})
 
-    const addUser = () => {
-        const user:User = {
-            id: 1,
-            name: "User Name",
-            email: "email@email.com"
-        }
-        setUser(user)
+    const handleSignIn = () => {
+        const user = {username, password}
+        alert({username: user.username, password: user.password})
     }
-
 
     return (
         <View style={screen.centered}>
@@ -49,7 +50,7 @@ export default function SignIn({ navigation }) {
                 <Button
                     style=""
                     icon={<MaterialCommunityIcons style={buttons.icon} name='login-variant' size={20} color="#A7AFF4" />}
-                    handle={addUser}
+                    handle={handleSignIn}
                     label="Sign In"
                 />
                 <Button

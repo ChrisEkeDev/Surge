@@ -9,6 +9,13 @@ const { handleValidationErrors } = require('../../utils/validation');
 // Get All Vehicles
 router.get('/', requireAuth, async(req, res) => {
     const auth = req.user;
+    if (!auth) {
+       return res.status(403).json({
+            status: 403,
+            message: "You need to sign in to use the app",
+            data: null
+       })
+    }
     const vehicles =await Vehicle.findAll({
         where: { userId: auth.id },
         include: [{
@@ -33,6 +40,9 @@ const validateVehicleCreate = [
 ]
 router.post('/', requireAuth, validateVehicleCreate, async(req, res) => {
     const auth = req.user;
+    if (!auth) {
+
+    }
     const { name, make, model, charger, year } = req.body;
     const vehicle = await Vehicle.create({
         userId: auth.id,
@@ -52,6 +62,13 @@ router.post('/', requireAuth, validateVehicleCreate, async(req, res) => {
 // Remove Vehicle
 router.delete('/:vehicleId', requireAuth, async(req, res) => {
     const auth = req.user;
+    if (!auth) {
+        return res.status(403).json({
+            status: 403,
+            message: "You need to sign in to use the app",
+            data: null
+       })
+    }
     const { vehicleId } = req.params;
     const vehicle = await Vehicle.findByPk(vehicleId);
     if (auth.id === vehicle.userId) {
