@@ -2,27 +2,30 @@
 import { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
-import { screen, auth } from '../../styles/MasterStyles';
+import { screen, auth, buttons } from '../../styles/MasterStyles';
 import Input from '../../styles/Inputs';
 import Button from '../../styles/Buttons';
-import { buttons } from '../../styles/MasterStyles';
 import { User } from '../../models';
 import { useApp } from '../../context/appContext';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
-import { setUser, clearUser } from '../../store/session';
-import { thunkSignIn } from '../../store/session';
+import { getUser, setUser, thunkSignIn } from '../../store/session';
 
 
 export default function SignIn({ navigation }) {
-    const user = useAppSelector((state) => state.session.user)
+    const user = useAppSelector(state => getUser(state))
     const dispatch = useAppDispatch()
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState({})
 
-    const handleSignIn = () => {
-        const user = {username, password}
-        alert({username: user.username, password: user.password})
+    const handleSignIn = async () => {
+        const credentials = {username, password}
+        try {
+            const user = await dispatch(thunkSignIn(credentials))
+            console.log(user)
+        } catch(e) {
+            console.log(e)
+        }
     }
 
     return (
@@ -32,18 +35,22 @@ export default function SignIn({ navigation }) {
                 <Text style={auth.header}>SURGE</Text>
                 <Text style={auth.text}>Sign In</Text>
             </View>
-            <View>
+            <View style={auth.inputsContainer}>
                 <Input
+                    name="username"
                     icon={null}
                     handle={setUsername}
                     value={username}
                     placeholder="Username"
+                    type="text"
                 />
                 <Input
+                    name="current-password"
                     icon={null}
                     handle={setPassword}
                     value={password}
                     placeholder="Password"
+                    type="text"
                 />
             </View>
             <View style={buttons.container}>

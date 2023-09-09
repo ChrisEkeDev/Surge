@@ -8,11 +8,10 @@ import configureStore from './store';
 import { store } from './store';
 import { restoreCSRF, csrfFetch } from './store/csrf';
 
-// if (process.env.NODE_ENV !== 'production') {
-//   // restoreCSRF();
-//   // window.csrfFetch = csrfFetch;
-//   // window.store = store;
-// }
+if (process.env.NODE_ENV !== 'production') {
+  restoreCSRF();
+  window.csrfFetch = csrfFetch;
+}
 
 export default function App() {
   return (

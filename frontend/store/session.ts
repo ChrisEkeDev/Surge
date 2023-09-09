@@ -50,6 +50,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from './index'
 import { csrfFetch } from './csrf';
+import Cookies from 'js-cookie';
 import { useAppDispatch } from './hooks';
 
 type RequestState = 'pending' | 'fulfilled' | 'rejected'
@@ -69,19 +70,21 @@ interface SessionState {
 }
 
 export const thunkSignIn = createAsyncThunk<User, UserCredentials>(
-  `/api/session`,
+  `/session`,
   async (credentials, { rejectWithValue }) => {
-    const res = await csrfFetch('/api/session', {
+    const res = await fetch('http://localhost:8000/api/session/', {
       method: "POST",
-      body: JSON.stringify(credentials),
+      body: JSON.stringify(credentials)
     })
-    try {
-    const data = await res.json();
-    // dispatch(setUser(data.user));
-    return data;
-    } catch(e) {
-      return rejectWithValue({Error: e})
-    }
+    const response = await res.json();
+    console.log(response);
+    // if (res.ok) {
+    //   const data = await res.json();
+    //   return data;
+    // } else {
+    //   const error = await res.json()
+    //   console.log(error)
+    // }
 })
 
 

@@ -22,6 +22,15 @@ export const inputs = StyleSheet.create({
     },
     icon: {
         marginRight: 12
+    },
+    label: {
+
+    },
+    textError: {
+
+    },
+    errorIcon: {
+
     }
 })
 
@@ -87,6 +96,9 @@ export const auth = StyleSheet.create({
         fontWeight: "900",
         fontSize: 25,
         color: "white"
+    },
+    inputsContainer: {
+        width: "100%"
     },
     text: {
         color: "white"

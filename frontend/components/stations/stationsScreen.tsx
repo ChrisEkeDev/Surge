@@ -22,7 +22,7 @@ const StationsScreen = ({ navigation }) => {
         {
             view === 'map' ?
             <>
-            <Map/>
+            {/* <Map/> */}
             {
                 currentLocation ?
                 <View style={styles.currentLocation}>

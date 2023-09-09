@@ -2,13 +2,15 @@ import { StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { CarsNavigator, StationsNavigator, SettingsNavigator } from './Navigators';
-import { useApp } from '../context/appContext';
+import { useAppSelector } from '../store/hooks';
+import { getUser } from '../store/session';
 import Authentication from './Authentication';
 
   const Tab = createBottomTabNavigator();
 
 const AppNavigation = () => {
-    const { user } = useApp()
+    const user = useAppSelector(state => getUser(state))
+    // console.log(user)
 
     return (
         <>
