@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const apiRouter = require('./api');
+const { User } = require('../db/models')
 
 // // Add a XSRF-TOKEN cookie in development
 // if (process.env.NODE_ENV !== 'production') {
@@ -17,6 +18,15 @@ router.use('/api', apiRouter);
 
 router.get('/', (req, res) => {
   return res.status(200).send('Hello World.')
+})
+
+router.get('/users', async (req, res) => {
+  const users = await User.findAll();
+  res.status(200).json({
+    status: 200,
+    message: "Users retrieved successfully",
+    data: users
+  })
 })
 
 // // Serve React build files in production
