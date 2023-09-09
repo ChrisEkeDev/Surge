@@ -4,15 +4,9 @@ const { User } = require('../db/models');
 
 const { secret, expiresIn } = jwtConfig;
 
-const setTokenCookie = (res, user) => {
-    const safeUser = {
-        id: user.id,
-        email: user.email,
-        username: user.username,
-    };
-
+const setTokenCookie = async (res, user) => {
     const token = jwt.sign(
-        { data: safeUser },
+        { data: user },
         secret,
         { expiresIn: parseInt(expiresIn) }
     );
@@ -39,6 +33,7 @@ const restoreUser = (req, res, next) => {
 
         try {
             const { id } = jwtPayload.data;
+            console.log("ID--------------------",id)
             req.user = await User.findByPk(id, {
             attributes: {
                 include: ['email', 'createdAt', 'updatedAt']
@@ -58,7 +53,6 @@ const restoreUser = (req, res, next) => {
 
 const requireAuth = function (req, _res, next) {
     if (req.user) return next();
-
     const err = new Error('Authentication required');
     err.title = 'Authentication required';
     err.errors = { message: 'Authentication required' };

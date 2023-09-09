@@ -18,7 +18,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-if (!isProduction) { app.use(cors()) }
+if (!isProduction) { app.use(cors({ origin: true, credentials: true })) }
 
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 

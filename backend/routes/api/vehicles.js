@@ -41,7 +41,11 @@ const validateVehicleCreate = [
 router.post('/', requireAuth, validateVehicleCreate, async(req, res) => {
     const auth = req.user;
     if (!auth) {
-
+        return res.status(403).json({
+            status: 403,
+            message: "You need to sign in to use the app",
+            data: null
+       })
     }
     const { name, make, model, charger, year } = req.body;
     const vehicle = await Vehicle.create({
@@ -57,6 +61,50 @@ router.post('/', requireAuth, validateVehicleCreate, async(req, res) => {
         message: 'Vehicle created successful',
         data: vehicle
     })
+})
+
+// Edit Vehicle
+const validateVehicleEdit = [
+    check('make').optional().exists({ checkFalsy: true }).withMessage('Please provide a make.'),
+    check('model').optional().exists({ checkFalsy: true }).withMessage('Please provide a model.'),
+    check('charger').optional().exists({ checkFalsy: true }).withMessage('Please provide a charger type.'),
+    check('year').optional().exists({ checkFalsy: true }).withMessage('Please provide a year.'),
+    handleValidationErrors
+]
+router.put('/:vehicleId', requireAuth, validateVehicleEdit, async(req, res) => {
+    const auth = req.user;
+    if (!auth) {
+        return res.status(403).json({
+            status: 403,
+            message: "You need to sign in to use the app",
+            data: null
+       })
+    }
+    const { vehicleId } = req.params;
+    const { name, make, model, chargerid, year } = req.body;
+    const vehicle = await Vehicle.findByPk(vehicleId)
+    if (auth.id === vehicle.userId) {
+        await vehicle.set({
+            name: name ? name : vehicle.name,
+            make: make ? make : vehicle.make,
+            model: model ? model : vehicle.model,
+            chargerId: chargerid ? chargerid : vehicle.chargerId,
+            year: year ? Number(year) : vehicle.year
+        })
+        await vehicle.save()
+        return res.status(201).json({
+            status: 201,
+            message: 'Vehicle updated successful',
+            data: vehicle
+        })
+    } else {
+        return res.status(403).json({
+            status: 403,
+            message: 'Not authorized to complete request',
+            data: null
+        })
+    }
+
 })
 
 // Remove Vehicle

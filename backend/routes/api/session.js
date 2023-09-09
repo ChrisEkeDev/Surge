@@ -29,13 +29,15 @@ router.post("/", async (req, res, next) => {
         return  next(err);
     }
 
-    await setTokenCookie(res, user)
-
     const safeUser = {
         id: user.id,
         username: user.username,
         email: user.email
     }
+
+    await setTokenCookie(res, safeUser)
+
+
 
     return res.status(200).json({
         status: 200,
@@ -63,8 +65,7 @@ router.get("/", (req, res) => {
 
         const safeUser = {
             id: user.id,
-            firstName: user.firstName,
-            lastName: user.lastName,
+            username: user.username,
             email: user.email
         }
 
