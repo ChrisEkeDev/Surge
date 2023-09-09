@@ -11,16 +11,15 @@ const { handleValidationErrors } = require('../../utils/validation');
 
 // Sign In
 const validateSignIn = [
-    check('email').exists({ checkFalsy: true }).isEmail().withMessage('Please provide a valid email.'),
+    check('username').exists({ checkFalsy: true }).withMessage('Please provide a username.'),
     check('password').exists({ checkFalsy: true }).withMessage('Please provide a password.'),
     handleValidationErrors
   ];
 
-router.post("/", validateSignIn, async(req, res, next) => {
-    const { email, password } = req.body;
-
+router.post("/", async(req, res, next) => {
+    const { username, password } = req.body;
     const user  = await User.unscoped().findOne({
-        where: { email: email }
+        where: { username: username }
     })
 
     if (!user || !bcrypt.compareSync(password, user.password.toString())) {
@@ -34,8 +33,7 @@ router.post("/", validateSignIn, async(req, res, next) => {
 
     const safeUser = {
         id: user.id,
-        firstName: user.firstName,
-        lastName: user.lastName,
+        username: user.username,
         email: user.email
     }
 
