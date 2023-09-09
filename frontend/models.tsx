@@ -1,12 +1,12 @@
-export interface Vehicle  {
-    id: number;
-    name: string;
-    make: string;
-    model: string;
-    year: number;
-    chargerId: number
+export type Vehicle = {
+    id: number,
+    userId: number,
+    chargerId: number,
+    name: string,
+    make: string,
+    model: string,
+    year: number
 }
-
 export interface User {
     id: number,
     name: string,
@@ -25,32 +25,6 @@ export interface Charger {
     name: string;
 }
 
-const bmw:Vehicle = {
-    id: 1,
-    name: "My BMW",
-    make: "BMW",
-    model: "i4",
-    year: 2023,
-    chargerId: 4
-}
-
-const nissan:Vehicle = {
-    id: 2,
-    name: "My Nissan",
-    make: "Nissan",
-    model: "Leaf",
-    year: 2023,
-    chargerId: 1
-}
-
-const tesla:Vehicle = {
-    id: 3,
-    name: "My Tesla",
-    make: "Tesla",
-    model: "Model X",
-    year: 2023,
-    chargerId: 2
-}
 
 const texaco:Location = {
     id: 1,
@@ -106,7 +80,5 @@ const gbtdc:Charger = {
     id: 8,
     name: 'GB/T DC'
 }
-
-export const vehicles = [bmw, nissan, tesla];
 export const locations = [texaco, shell, exxon];
 export const chargers = [sae, mennekes, css1, css2, chademo, teslas, gbtac, gbtdc]

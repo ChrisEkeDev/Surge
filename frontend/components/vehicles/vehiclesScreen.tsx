@@ -1,41 +1,52 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View, Text, StyleSheet, FlatList, Pressable } from 'react-native'
 import { useApp } from '../../context/appContext';
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import VehicleItem from './vehicleItem';
 import { pressables } from '../../styles/Pressables';
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
-import { useGetUserVehiclesQuery } from '../../store/features/api';
+import { thunkGetUserVehicles } from '../../store/vehicles';
+
+
+const NoVehicles = () => {
+  return (
+      <View style={styles.noVehiclesContainer}>
+        <MaterialCommunityIcons style={styles.noVehiclesIcon} name="car-off" size={32} color="#A7AFF4"/>
+        <Text style={styles.noVehiclesText}>No Vehicles Yet</Text>
+      </View>
+  )
+}
 
 const VehiclesScreen = ({ navigation }) => {
-  const { data, isSuccess, isError, error, isLoading } = useGetUserVehiclesQuery()
-  // const normalizedVehicles = Object.values(myVehicles)
-  let content;
+  const user = useAppSelector(state => state.session.user)
+  const data = useAppSelector(state => state.vehicles.vehicles)
+  const vehicles = Object.values(data)
+  const dispatch = useAppDispatch()
 
-  if (isLoading) {
-    content = <View><Text>Loading...</Text></View>
-  } else if (isSuccess) {
-    content = <FlatList
-                style={styles.list}
-                data={data}
-                ListEmptyComponent={
-                  <View style={styles.noVehiclesContainer}>
-                    <MaterialCommunityIcons style={styles.noVehiclesIcon} name="car-off" size={32} color="#A7AFF4"/>
-                    <Text style={styles.noVehiclesText}>No Vehicles Yet</Text>
-                  </View>
-                }
-                renderItem={(item) => (
-                  <VehicleItem
-                    vehicle={item}
-                    navigation={navigation}
-                  />)
-              }/>
-  } else if (isError) {
-    content = <View>{error.toString()}</View>
-  }
+
+  useEffect(() => {
+    const controller = new AbortController()
+    dispatch(thunkGetUserVehicles())
+    return () => controller.abort()
+  }, [])
 
   return (
     <View style={styles.screenContainer}>
-      {content}
+      {/* {content} */}
+      {
+        data && vehicles.length ?
+        <FlatList
+          style={styles.list}
+          data={vehicles}
+          ListEmptyComponent={<NoVehicles/>}
+          renderItem={(item) => (
+            <VehicleItem
+              vehicle={item}
+              navigation={navigation}
+            />)
+        }/> :
+        <View><Text>Loading...</Text></View>
+      }
       <View  style={styles.bottomOptions}>
         <Pressable style={pressables.iconButton} onPress={() => navigation.navigate("Add Vehicle")}>
             <MaterialCommunityIcons name="plus" size={20} color="#A7AFF4"/>

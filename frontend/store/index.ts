@@ -1,20 +1,18 @@
 // import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import sessionReducer from './session';
+import vehicleReducer from './vehicles'
 // import thunk from 'redux-thunk';
 import { applyMiddleware, configureStore, getDefaultMiddleware } from "@reduxjs/toolkit"
-import { apiSlice } from './features/api';
+import { vehiclesSlice } from './vehicles';
+
 
 let enhancer = applyMiddleware
 
 export const store = configureStore({
   reducer: {
     session: sessionReducer,
-    [apiSlice.reducerPath]: apiSlice.reducer
-  },
-  middleware: getDefaultMiddleware =>
-    getDefaultMiddleware({
-      serializableCheck: false
-    }).concat(apiSlice.middleware)
+    vehicles: vehicleReducer
+  }
 })
 
 // const rootReducer = combineReducers({

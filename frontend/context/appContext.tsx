@@ -49,7 +49,6 @@ const AppProvider = ({children}) => {
             }}>
                 <Modal
                     visible={loading}
-                    // animationType='fade'
                     >
                     <View style={screen.centered}>
                         <MaterialCommunityIcons name="lightning-bolt" size={50} color="#A7AFF4" />

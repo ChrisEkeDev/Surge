@@ -2,11 +2,20 @@ import React from 'react';
 import { useApp } from '../../context/appContext';
 import { View, Text, StyleSheet, Pressable} from 'react-native';
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { useAppSelector } from '../../store/hooks';
+import { useAppDispatch } from '../../store/hooks';
+import { thunkSignOut } from '../../store/session';
 import Button from '../../styles/Buttons';
+import { getUser } from '../../store/session';
 import { buttons } from '../../styles/MasterStyles';
 
 const SettingsScreen = ({ navigation }) => {
-    const { setUser } = useApp();
+    const user = useAppSelector(state => getUser(state))
+    const dispatch = useAppDispatch();
+
+    const handleSignOut = async () => {
+        dispatch(thunkSignOut())
+    }
 
     return  (
         <View style={styles.screenContainer}>
@@ -19,7 +28,7 @@ const SettingsScreen = ({ navigation }) => {
             <Button
                 style=""
                 icon={<MaterialCommunityIcons style={buttons.icon} name="logout-variant" size={20} color="#A7AFF4" />}
-                handle={() => setUser(null)}
+                handle={handleSignOut}
                 label="Sign Out"
             />
         </View>

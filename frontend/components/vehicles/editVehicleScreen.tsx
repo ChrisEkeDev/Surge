@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { chargers } from '../../models';
 import { useApp } from '../../context/appContext';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { Vehicle } from '../../models';
 import ChargerItem from './ChargerItem';
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
@@ -8,28 +9,40 @@ import { View, Text, Pressable, ScrollView, TextInput, StyleSheet, FlatList } fr
 import Input from '../../styles/Inputs';
 import Button from '../../styles/Buttons';
 import { buttons } from '../../styles/MasterStyles';
+import { editUserVehicle, thunkEditUserVehicle } from '../../store/vehicles';
 
 const EditVehicleScreen = ({ route, navigation }) => {
   const { vehicle } = route.params;
   const charger = chargers.find(charger => charger.id === vehicle.item.chargerId)
+  const user = useAppSelector(state => state.session.user)
   const [name, setName] = useState(vehicle.item.name)
   const [make, setMake] = useState(vehicle.item.make)
   const [model, setModel] = useState(vehicle.item.model)
   const [year, setYear] = useState(vehicle.item.year)
   const [chargerId, setChargerId] = useState(charger.id)
-  const { editVehicle } = useApp();
+  const dispatch = useAppDispatch();
+  const { setLoading } = useApp();
 
-  const handleEdit = () => {
+
+  const handleEdit = async () => {
+    setLoading(true)
     const v:Vehicle = {
       id: vehicle.item.id,
       name,
       make,
       model,
       year: Number(year),
-      chargerId
+      chargerId,
+      userId: user.id
     }
-    editVehicle(v)
-    navigation.navigate("Vehicles")
+    try {
+      const newVehicle = await dispatch(thunkEditUserVehicle(v))
+    } catch(e) {
+      console.log(e)
+    } finally {
+      setLoading(false)
+    }
+    navigation.push("Vehicles")
   }
 
   return (
@@ -39,24 +52,32 @@ const EditVehicleScreen = ({ route, navigation }) => {
           <Text style={styles.formLabel}>Vehicle Information</Text>
         </View>
         <Input
+          name="name"
+          type="text"
           icon={null}
           handle={setName}
           value={name}
           placeholder="Name"
       />
       <Input
+          name="name"
+          type="text"
           icon={null}
           handle={setMake}
           value={make}
           placeholder="Make"
       />
       <Input
+          name="name"
+          type="text"
           icon={null}
           handle={setModel}
           value={model}
           placeholder="Model"
       />
         <Input
+          name="name"
+          type="text"
           icon={null}
           handle={setYear}
           value={year}

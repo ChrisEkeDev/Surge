@@ -7,7 +7,6 @@ import { thunkSignIn, getUser } from '../store/session'
 
 export function useSignIn() {
     const dispatch = useAppDispatch()
-    const status = useAppSelector(state => state.session.status)
     const data = useAppSelector(state => getUser(state))
 
     const isUninitialized = status === null
