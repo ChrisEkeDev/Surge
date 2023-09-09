@@ -7,7 +7,6 @@ import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useGetUserVehiclesQuery } from '../../store/features/api';
 
 const VehiclesScreen = ({ navigation }) => {
-  const { myVehicles} = useApp();
   const { data, isSuccess, isError, error, isLoading } = useGetUserVehiclesQuery()
   // const normalizedVehicles = Object.values(myVehicles)
   let content;

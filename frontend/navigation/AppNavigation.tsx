@@ -10,7 +10,7 @@ import Authentication from './Authentication';
 
 const AppNavigation = () => {
     const user = useAppSelector(state => getUser(state))
-    // console.log(user)
+    console.log(user)
 
     return (
         <>

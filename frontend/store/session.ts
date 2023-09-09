@@ -49,14 +49,20 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from './index'
-import { csrfFetch } from './csrf';
 import Cookies from 'js-cookie';
 import { useAppDispatch } from './hooks';
 
-type RequestState = 'pending' | 'fulfilled' | 'rejected'
 type User = {
+  id: number,
   username: string,
-  email: string
+  password: string
+}
+type RequestState = 'pending' | 'fulfilled' | 'rejected'
+
+type ResponseObject = {
+  status: number,
+  message: string,
+  data: User
 }
 
 type UserCredentials = {
@@ -69,23 +75,19 @@ interface SessionState {
   user: User
 }
 
-export const thunkSignIn = createAsyncThunk<User, UserCredentials>(
-  `/session`,
-  async (credentials, { rejectWithValue }) => {
-    const res = await fetch('http://localhost:8000/api/session/', {
+export const thunkSignIn = (credentials: UserCredentials) => async (dispatch) => {
+    const res = await fetch('http://localhost:8000/api/session', {
       method: "POST",
+      headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
       body: JSON.stringify(credentials)
     })
     const response = await res.json();
-    console.log(response);
-    // if (res.ok) {
-    //   const data = await res.json();
-    //   return data;
-    // } else {
-    //   const error = await res.json()
-    //   console.log(error)
-    // }
-})
+    if (response.status === 200) {
+      console.log(response)
+      dispatch(setUser(response.data))
+    }
+}
+
 
 
 
@@ -105,19 +107,19 @@ export const sessionSlice = createSlice({
       state.user = null
     }
   },
-  extraReducers: (builder) => {
-    builder.addCase(thunkSignIn.pending, (state) => {
-      state.status = "pending"
-    })
-    builder.addCase(thunkSignIn.fulfilled, (state, action) => {
-      state.status = "fulfilled"
-      state.user = action.payload
-    })
-    builder.addCase(thunkSignIn.rejected, (state) => {
-      state.status = "rejected"
-    })
+  // extraReducers: (builder) => {
+  //   builder.addCase(thunkSignIn.pending, (state) => {
+  //     state.status = "pending"
+  //   })
+  //   builder.addCase(thunkSignIn.fulfilled, (state, action) => {
+  //     state.status = "fulfilled"
+  //     state.user = action.payload.data
+  //   })
+  //   builder.addCase(thunkSignIn.rejected, (state) => {
+  //     state.status = "rejected"
+  //   })
 
-  }
+  //}
 })
 
 export const { setUser, clearUser } = sessionSlice.actions

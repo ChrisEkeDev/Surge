@@ -16,15 +16,19 @@ export default function SignIn({ navigation }) {
     const dispatch = useAppDispatch()
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const { setLoading } = useApp();
     const [errors, setErrors] = useState({})
 
     const handleSignIn = async () => {
+        setLoading(true)
         const credentials = {username, password}
         try {
             const user = await dispatch(thunkSignIn(credentials))
             console.log(user)
         } catch(e) {
             console.log(e)
+        } finally {
+            setLoading(false)
         }
     }
 
