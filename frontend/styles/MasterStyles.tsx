@@ -7,8 +7,12 @@ export const inputs = StyleSheet.create({
         position: "relative",
         alignItems: "center",
         flexDirection: "row",
-        borderBottomColor: "rgba(255,255,255,.10)",
-        borderBottomWidth: 1,
+        borderColor: "rgba(255,255,255,.10)",
+        borderWidth: 1,
+        marginVertical: 12,
+        borderRadius: 5
+        // borderBottomColor: "rgba(255,255,255,.10)",
+        // borderBottomWidth: 1,
       },
       inputContents: {
         flex: 1,
@@ -16,22 +20,49 @@ export const inputs = StyleSheet.create({
         flexDirection: "row",
       },
       textInput: {
-        paddingVertical: 16,
+        padding: 16,
         width: '100%',
         color: "white",
+    },
+
+    goodInput: {
+        borderColor: '#52FF5250',
+        borderWidth: 1,
+        borderRadius: 5
+    },
+    errorInput: {
+        borderColor: '#FF525250',
+        borderWidth: 1,
+        borderRadius: 5
     },
     icon: {
         marginRight: 12
     },
     label: {
+        position: "absolute",
+        top: -12,
+        backgroundColor: '#1D1F40',
+        paddingHorizontal: 5,
+        color: "#A7AFF4",
+        fontWeight: "600"
+    },
+    labelIcon: {
 
     },
-    textError: {
 
-    },
     errorIcon: {
-
-    }
+        position: "absolute",
+        right: 16
+    },
+    errorText: {
+        position: "absolute",
+        backgroundColor: '#1D1F40',
+        paddingHorizontal: 6,
+        bottom: -6,
+        color: "#FF5252",
+        fontSize: 12,
+        left: 0
+    },
 })
 
 export const screen = StyleSheet.create({
@@ -62,17 +93,35 @@ export const buttons = StyleSheet.create({
     basic: {
         flexDirection: "row",
         paddingVertical: 16,
+        // borderColor: "#EAC501",
+        borderColor: "rgba(255,255,255,.10)",
+        borderWidth: 1,
+        marginBottom: 16,
+        alignItems: "center",
+        justifyContent: "center",
+        width: "100%"
+    },
+    arrow: {
+        flexDirection: "row",
+        paddingVertical: 16,
         borderBottomColor: "rgba(255,255,255,.10)",
         borderBottomWidth: 1,
         alignItems: "center",
         width: "100%"
     },
-    arrow: {
-
+    link: {
+        flexDirection: "row",
+        alignItems: "center",
+        paddingVertical: 16,
+        alignSelf: "flex-end"
+    },
+    linkText: {
+        textAlign: "right",
+        color: "#FFFFFF",
+        marginRight: 48
     },
     basicText: {
         color: "white",
-        flex: 1,
         fontWeight: "bold",
         fontSize: 18
     },

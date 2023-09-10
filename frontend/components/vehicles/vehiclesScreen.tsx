@@ -23,8 +23,8 @@ const VehiclesScreen = ({ navigation }) => {
   const vehicles = Object.values(data)
   const dispatch = useAppDispatch()
 
-
   useEffect(() => {
+    console.log("Get VEHICLES RUNS NOW------------------")
     const controller = new AbortController()
     dispatch(thunkGetUserVehicles())
     return () => controller.abort()

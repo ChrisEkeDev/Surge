@@ -1,16 +1,25 @@
 export type Vehicle = {
-    id: number,
-    userId: number,
-    chargerId: number,
+    id?: number,
+    userId?: number,
+    chargerId?: number,
+    charger?: unknown,
     name: string,
     make: string,
     model: string,
     year: number
 }
-export interface User {
-    id: number,
-    name: string,
-    email: string
+export type User = {
+    id?: number,
+    username: string,
+    email: string,
+    password?: string
+}
+
+export type NewUserCedentials = {
+    username: string,
+    email: string,
+    password: string,
+    confirmPassword: string
 }
 
 export interface Location {

@@ -7,7 +7,7 @@ const VehicleItem = ({ vehicle, navigation }) => {
     const charger = chargers.find(charger => charger.id === vehicle.item.chargerId)
 
     return (
-        <Pressable onPress={() => navigation.navigate("My Vehicle", {vehicle: vehicle})} style={item.vehicleItem}>
+        <Pressable onPress={() => navigation.navigate("My Vehicle", {vehicleId: vehicle.item.id})} style={item.vehicleItem}>
             <View>
                 <Text style={item.vehicleName}>{vehicle.item.name}</Text>
                 <Text style={item.vehicleDetails}>{vehicle.item.year} {vehicle.item.make} {vehicle.item.model}</Text>

@@ -1,27 +1,66 @@
-import { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, ToastAndroid } from 'react-native';
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { inputs, screen, buttons, auth } from '../../styles/MasterStyles';
 import Input from '../../styles/Inputs';
 import Button from '../../styles/Buttons';
-import { User } from '../../models';
+import { NewUserCedentials } from '../../models';
 import { useApp } from '../../context/appContext';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { thunkSignUp } from '../../store/session';
+
 
 export default function SignUp({ navigation }) {
+    const dispatch = useAppDispatch();
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const { setUser } = useApp();
+    const [goodData, setGoodData] = useState(undefined)
+    const { setLoading } = useApp();
+    const [errors, setErrors] = useState(undefined)
 
-    const addUser = () => {
-        const user:User = {
-            id: 1,
-            name: "User Name",
-            email: "email@email.com"
+
+
+    const handleSignUp = async () => {
+        setLoading(true)
+        const user:NewUserCedentials = {
+            username,
+            email,
+            password,
+            confirmPassword
         }
-        setUser(user)
+        const userData = await dispatch(thunkSignUp(user))
+        if (userData?.status && userData?.status >= 400) {
+            setErrors(userData.errors)
+        } else {
+            console.log(userData)
+        }
+         setLoading(false)
     }
+
+    useEffect(() => {
+        let goodData:any = {}
+        let currErrors = { ...errors }
+        if (username.trim().length >= 3) {
+            goodData.username = true
+            delete currErrors.username
+        }
+        if (password.trim().length >= 6) {
+            goodData.password = true
+            delete currErrors.password
+        }
+        if (email.includes(".") && email.includes("@")) {
+            goodData.email = true
+            delete currErrors.email
+        }
+        if (goodData.password && password === confirmPassword) {
+            goodData.confirmPassword = true
+            delete currErrors.confirmPassword
+        }
+        setErrors(currErrors)
+        setGoodData(goodData)
+    }, [username, email, password, confirmPassword])
 
     return (
         <View style={screen.centered}>
@@ -30,44 +69,67 @@ export default function SignUp({ navigation }) {
                 <Text style={auth.header}>SURGE</Text>
                 <Text style={auth.text}>Sign Up</Text>
             </View>
-            <View>
+            <View style={auth.inputsContainer}>
                 <Input
-                    icon={<MaterialCommunityIcons style={inputs.icon} name='account-outline' size={20} color="#A7AFF4"/>}
+                    label="Username"
+                    name="username"
+                    icon={null}
                     handle={setUsername}
                     value={username}
-                    placeholder="Username"
+                    placeholder=""
+                    type="text"
+                    error={errors?.username}
+                    goodData={goodData?.username}
                 />
                 <Input
-                    icon={<MaterialCommunityIcons style={inputs.icon} name='email-outline' size={20} color="#A7AFF4"/>}
+                    label="Email"
+                    name="email"
+                    icon={null}
                     handle={setEmail}
                     value={email}
-                    placeholder="Email"
+                    placeholder=""
+                    type="text"
+                    error={errors?.email}
+                    goodData={goodData?.email}
                 />
                 <Input
-                    icon={<MaterialCommunityIcons style={inputs.icon} name='form-textbox-password' size={20} color="#A7AFF4"/>}
+                    label="New Password"
+                    name="new-password"
+                    icon={null}
                     handle={setPassword}
                     value={password}
-                    placeholder="Password"
+                    placeholder=""
+                    type="password"
+                    error={errors?.password}
+                    goodData={goodData?.password}
                 />
                 <Input
-                    icon={<MaterialCommunityIcons style={inputs.icon} name='form-textbox-password' size={20} color="#A7AFF4"/>}
+                    label="Confirm Password"
+                    name="confirm-password"
+                    icon={null}
                     handle={setConfirmPassword}
                     value={confirmPassword}
-                    placeholder="Confirm Password"
+                    placeholder=""
+                    type="password"
+                    error={errors?.confirmPassword}
+                    goodData={goodData?.confirmPassword}
                 />
             </View>
             <View style={buttons.container}>
                 <Button
                     style=""
-                    icon={<MaterialIcons style={buttons.icon} name='person-add-alt' size={20} color="#A7AFF4" />}
-                    handle={addUser}
+                    icon={null}
+                    handle={handleSignUp}
                     label="Sign Up"
+                    disabled={errors && Object.values(errors).length}
+
                 />
                 <Button
-                    style="arrow"
+                    style="link"
                     icon={<MaterialCommunityIcons style={buttons.icon} name='account-question-outline' size={20} color="#A7AFF4"/>}
                     handle={() => navigation.navigate("Sign In")}
                     label="Already have an account?"
+                    disabled={false}
                 />
             </View>
         </View>

@@ -3,12 +3,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from './index'
-
-type User = {
-  id: number,
-  username: string,
-  password: string
-}
+import { User } from '../models';
 
 type UserCredentials = {
   username: string,
@@ -22,26 +17,60 @@ interface SessionState {
 export const thunkSignIn = (credentials: UserCredentials) => async (dispatch:any) => {
     const res = await fetch('http://localhost:8000/api/session', {
       method: "POST",
-      headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+      headers: {'Content-Type': 'application/json', 'Accept': 'application/json', 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE' },
       credentials: 'include',
       body: JSON.stringify(credentials),
     })
-    const response = await res.json();
-    if (response.status === 200) {
-      dispatch(setUser(response.data))
+
+    if (res && res.ok) {
+      let response = await res.json();
+      console.log(response)
+      if (response.status === 200) {
+        dispatch(setUser(response.data))
+      }
+    } else {
+      let errors = await res.json();
+      return errors
     }
 }
 
 export const thunkSignOut = () => async (dispatch:any) => {
   const res = await fetch('http://localhost:8000/api/session', {
       method: "DELETE",
-      headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+      credentials: 'include',
+      headers: {'Content-Type': 'application/json', 'Accept': 'application/json', 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE' },
     })
     const response = await res.json();
     if (response.status === 200) {
       dispatch(clearUser())
     }
 }
+
+export const thunkSignUp = (user: User) => async (dispatch: any) => {
+  const res = await fetch("http://localhost:8000/api/users", {
+    method: "POST",
+    headers: {'Content-Type': 'application/json', 'Accept': 'application/json', 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE' },
+    credentials: 'include',
+    body: JSON.stringify(user),
+  })
+
+  if (res && res.ok) {
+    let response = await res.json();
+    if (response.status === 200) {
+      dispatch(setUser(response.data))
+    }
+  } else {
+    let errors = await res.json();
+      console.log(errors)
+      return errors
+  }
+}
+
+// export const thunkSignOff = (id: number) => async (dispatch: any) => {
+//   const res = await fetch(`http://localhost:8000/api/users/${id}`, {
+
+//   })
+// }
 
 
 

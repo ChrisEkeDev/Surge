@@ -2,19 +2,28 @@ import React, { useState } from 'react';
 import { useApp } from '../../context/appContext';
 import { ScrollView, View, TextInput, Text, StyleSheet, Pressable, Modal, ToastAndroid } from 'react-native';
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
-import VehicleItem from './vehicleItem';
-import { chargers } from '../../models';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { thunkDeleteUserVehicle } from '../../store/vehicles';
 import { buttons } from '../../styles/MasterStyles';
 import Button from '../../styles/Buttons';
 
 const DeleteVehicleScreen = ({ route, navigation }) => {
-  const { deleteVehicle } = useApp();
-  const { vehicle } = route.params;
-  const charger = chargers.find(charger => charger.id === vehicle?.item.chargerId)
+  const { setLoading } = useApp();
+  const { vehicleId } = route.params;
+  const dispatch = useAppDispatch();
 
-  const handleDelete = (id: number) => {
-    deleteVehicle(id);
-    navigation.navigate("Vehicles")
+
+  const handleDelete = async () => {
+    setLoading(true)
+    try {
+      const response = await dispatch(thunkDeleteUserVehicle(vehicleId))
+    } catch(e) {
+      console.log(e)
+    } finally {
+      setLoading(false)
+      navigation.push("Vehicles")
+    }
+
   }
 
 
@@ -28,7 +37,7 @@ const DeleteVehicleScreen = ({ route, navigation }) => {
           <Button
             style=""
             icon={<MaterialCommunityIcons style={buttons.icon} name="trash-can-outline" size={20} color="#FF5252" />}
-            handle={() => handleDelete(vehicle?.item.id)}
+            handle={handleDelete}
             label="Delete Vehicle"
           />
       </View>

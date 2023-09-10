@@ -2,35 +2,38 @@ import React, { useState } from 'react';
 import { chargers } from '../../models';
 import { View, Text, StyleSheet, Pressable, Modal } from 'react-native'
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { useAppSelector } from '../../store/hooks';
 import Button from '../../styles/Buttons';
 import { buttons } from '../../styles/MasterStyles';
 
 
 const VehicleDetailsScreen = ({ route, navigation }) => {
-    const { vehicle } = route.params;
-    const charger = chargers.find(charger => charger.id === vehicle.item.chargerId)
+    const { vehicleId } = route.params;
+    const vehicle = useAppSelector(state => state.vehicles.vehicles[vehicleId])
+    console.log(vehicle)
 
 
     return (
+      vehicle &&
       <View  style={styles.screenContainer}>
           <View style={styles.detailItem}>
             <Text style={styles.detailLabel}>Make</Text>
-            <Text style={styles.detailInfo}>{vehicle.item.name}</Text>
+            <Text style={styles.detailInfo}>{vehicle.name}</Text>
           </View>
           <View style={styles.detailItem}>
             <Text style={styles.detailLabel}>Model</Text>
-            <Text style={styles.detailInfo}>{vehicle.item.model}</Text>
+            <Text style={styles.detailInfo}>{vehicle.model}</Text>
           </View>
           <View style={styles.detailItem}>
             <Text style={styles.detailLabel}>Year</Text>
-            <Text style={styles.detailInfo}>{vehicle.item.year}</Text>
+            <Text style={styles.detailInfo}>{vehicle.year}</Text>
           </View>
           <View style={styles.chargerItem}>
             <View style={styles.chargerImage}></View>
-            <Text style={styles.chargerLabel}>{charger.name}</Text>
+            <Text style={styles.chargerLabel}>{vehicle.chargerId}</Text>
           </View>
           <View style={buttons.container}>
-            <Button
+           <Button
               style="arrow"
               icon={<MaterialCommunityIcons style={buttons.icon} name="circle-edit-outline" size={20} color="#A7AFF4" />}
               handle={() => navigation.navigate("Edit Vehicle", {vehicle: vehicle})}
@@ -39,7 +42,7 @@ const VehicleDetailsScreen = ({ route, navigation }) => {
             <Button
               style="arrow"
               icon={<MaterialCommunityIcons style={buttons.icon} name="trash-can-outline" size={20} color="#FF5252" />}
-              handle={() => navigation.navigate("Delete Vehicle", {vehicle: vehicle})}
+              handle={() => navigation.navigate("Delete Vehicle", {vehicleId: vehicleId})}
               label="Delete Vehicle"
             />
           </View>

@@ -1,62 +1,86 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { chargers } from '../../models';
 import { useApp } from '../../context/appContext';
 import { Vehicle } from '../../models';
 import ChargerItem from './ChargerItem';
 import Input from '../../styles/Inputs';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { ScrollView, View, Text, TextInput, Pressable, StyleSheet, FlatList } from 'react-native'
 import { buttons } from '../../styles/MasterStyles';
 import Button from '../../styles/Buttons';
+import { useScrollToTop } from '@react-navigation/native';
+import { thunkAddUserVehicle } from '../../store/vehicles';
 
 const NewVehicleScreen = ({ navigation }) => {
-
   const [name, setName] = useState('')
   const [make, setMake] = useState('')
   const [model, setModel] = useState('')
   const [year, setYear] = useState('')
-  const [chargerId, setChargerId] = useState(0)
-  const { saveVehicle, myVehicles } = useApp();
-  const normalizedVehicles = Object.values(myVehicles)
+  const [chargerId, setChargerId] = useState(undefined);
+  const dispatch = useAppDispatch();
+  const { setLoading } = useApp();
 
-  const submit = () => {
+  const ref = useRef(null);
+  useScrollToTop(ref);
+
+  const submit = async () => {
     const v:Vehicle = {
-      id: normalizedVehicles.length + 1,
       name,
       make,
       model,
       year: Number(year),
       chargerId
     }
-    saveVehicle(v)
-    navigation.navigate("Vehicles")
+    let response: unknown;
+    try {
+      response = await dispatch(thunkAddUserVehicle(v))
+    } catch (e) {
+      console.log(e)
+    } finally {
+      setName("")
+      setMake("")
+      setModel("")
+      setYear("")
+      setChargerId(undefined)
+      setLoading(false)
+      navigation.push("Vehicles")
+    }
   }
 
   return (
-    <ScrollView contentContainerStyle={styles.screenContainer}>
+    <ScrollView ref={ref} contentContainerStyle={styles.screenContainer}>
       <View style={styles.screenHeader}>
         <MaterialIcons name="electric-car" size={20} color="#A7AFF4"/>
         <Text style={styles.formLabel}>Vehicle Information</Text>
       </View>
       <Input
+          name="name"
+          type="text"
           icon={null}
           handle={setName}
           value={name}
           placeholder="Name"
       />
       <Input
+          name="name"
+          type="text"
           icon={null}
           handle={setMake}
           value={make}
           placeholder="Make"
       />
       <Input
+          name="name"
+          type="text"
           icon={null}
           handle={setModel}
           value={model}
           placeholder="Model"
       />
         <Input
+            name="name"
+          type="text"
           icon={null}
           handle={setYear}
           value={year}

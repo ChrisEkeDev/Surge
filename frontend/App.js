@@ -7,6 +7,7 @@ import AppProvider from './context/appContext';
 import configureStore from './store';
 import { store } from './store';
 import { restoreCSRF, csrfFetch } from './store/csrf';
+import { RootSiblingParent } from 'react-native-root-siblings';
 
 if (process.env.NODE_ENV !== 'production') {
   restoreCSRF();
@@ -16,11 +17,13 @@ if (process.env.NODE_ENV !== 'production') {
 export default function App() {
   return (
     <Provider store={store}>
-      <AppProvider>
-          <NavigationContainer>
-            <AppNavigation/>
-          </NavigationContainer>
-      </AppProvider>
+      <RootSiblingParent>
+        <AppProvider>
+            <NavigationContainer>
+              <AppNavigation/>
+            </NavigationContainer>
+        </AppProvider>
+      </RootSiblingParent>
     </Provider>
   );
 }

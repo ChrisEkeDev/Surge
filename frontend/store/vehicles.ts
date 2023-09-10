@@ -19,7 +19,7 @@ interface SessionState {
     const res = await fetch('http://localhost:8000/api/vehicles', {
         method: "GET",
         credentials: 'include',
-        headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+        headers: {'Content-Type': 'application/json', 'Accept': 'application/json', 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE'},
     })
     const response = await res.json();
     if (response.status === 200) {
@@ -27,18 +27,43 @@ interface SessionState {
     }
   }
 
+  export const thunkAddUserVehicle = (vehicle: Vehicle) => async (dispatch: any) => {
+    const res = await fetch(`http://localhost:8000/api/vehicles`, {
+      method: "POST",
+      credentials: 'include',
+      headers: {'Content-Type': 'application/json', 'Accept': 'application/json', 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE'},
+      body: JSON.stringify(vehicle)
+    })
+    const response = await res.json();
+    if (response.status === 201) {
+      dispatch(addUserVehicle(response.data))
+      return response
+    }
+  }
+
   export const thunkEditUserVehicle = (vehicle: Vehicle) => async (dispatch: any) => {
     const res = await fetch(`http://localhost:8000/api/vehicles/${vehicle.id}`, {
       method: "PUT",
       credentials: 'include',
-      headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+      headers: {'Content-Type': 'application/json', 'Accept': 'application/json', 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE'},
       body: JSON.stringify(vehicle)
     })
-    console.log(vehicle)
     const response = await res.json();
     if (response.status === 200) {
       dispatch(editUserVehicle(response.data))
     }
+  }
+
+  export const  thunkDeleteUserVehicle = (vehicleId: number) => async (dispatch: any) => {
+    const res = await fetch(`http://localhost:8000/api/vehicles/${vehicleId}`, {
+      method: "DELETE",
+      credentials: 'include',
+      headers: {'Content-Type': 'application/json', 'Accept': 'application/json', 'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE'}
+    })
+      const response = await res.json();
+      if (response.status === 200) {
+        dispatch(deleteUserVehicle(vehicleId))
+      }
   }
 
   export const vehiclesSlice = createSlice({
@@ -50,11 +75,17 @@ interface SessionState {
       },
       editUserVehicle: (state, action: PayloadAction<Vehicle>) => {
         state.vehicles[action.payload.id] = action.payload
+      },
+      addUserVehicle: (state, action: PayloadAction<Vehicle>) => {
+        state.vehicles[action.payload.id] = action.payload
+      },
+      deleteUserVehicle: (state, action: PayloadAction<number>) => {
+        delete state.vehicles[action.payload]
       }
     }
   })
 
-  export const { getUserVehicles, editUserVehicle } = vehiclesSlice.actions
+  export const { getUserVehicles, editUserVehicle, addUserVehicle, deleteUserVehicle } = vehiclesSlice.actions
 
 //   export const getUser = (state: RootState) => state.session.user;
 
