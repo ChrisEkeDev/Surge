@@ -10,34 +10,47 @@ const { handleValidationErrors } = require('../../utils/validation');
 
 // Sign Up
 const validateSignUp = [
-    check('firstName').exists({ checkFalsy: true }).withMessage('Please provide a first name.'),
-    check('lastName').exists({ checkFalsy: true }).withMessage('Please provide a last name.'),
+    check('username').exists({ checkFalsy: true }).withMessage('Please provide a username.'),
     check('email').exists({ checkFalsy: true }).isEmail().withMessage('Please provide a valid email.'),
     check('password').exists({ checkFalsy: true }).isLength({ min: 6 }).withMessage('Password must be 6 characters or more.'),
+    check('confirmPassword').exists({ checkFalsy: true }).custom(async (password, { req }) => {
+        console.log( req.body.confirmPassword, req.body.password)
+        if (req.body.password !== req.body.confirmPassword) throw new Error("Passwords must match.")
+    }),
     handleValidationErrors
 ];
 
 router.post('/', validateSignUp, async(req, res) => {
-    const { firstName, lastName, email, password } = req.body;
+    const { username, email, password, confirmPassword } = req.body;
     const hashPass = bcrypt.hashSync(password);
-    const user = await User.create({
-        firstName, lastName, email, password: hashPass
-    })
+    if (password === confirmPassword) {
+        const user = await User.create({
+            username, email, password: hashPass
+        })
 
-    await setTokenCookie(res, user);
+        await setTokenCookie(res, user);
 
-    const safeUser = {
-        id: user.id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email
+        const safeUser = {
+            id: user.id,
+            username: user.username,
+            email: user.email
+        }
+
+        return res.status(200).json({
+            status: 200,
+            message: "Sign up successful",
+            data: safeUser,
+        })
+    } else {
+        return res.status(404).json({
+            status: 401,
+            message: 'Passwords dont match',
+            data: null
+        })
     }
 
-    return res.status(200).json({
-        status: 200,
-        message: "Sign up successful",
-        data: safeUser,
-    })
+
+
 
 })
 
@@ -60,7 +73,7 @@ router.patch('/:userId', requireAuth, valiateEditUser, async(req, res) => {
        })
     }
     const { userId } = req.params;
-    const { firstName, lastName, email, password } = req.body;
+    const { username, email, password } = req.body;
     const user = await User.findByPk(userId);
     if (!user) {
         return res.status(404).json({
@@ -71,16 +84,14 @@ router.patch('/:userId', requireAuth, valiateEditUser, async(req, res) => {
     }
     if (auth.id === user.id) {
         await user.set({
-            firstName: firstName ? firstName : user.firstName,
-            lastName: lastName ? lastName : user.lastName,
+            username: username ? username : user.username,
             email: email ? email : user.email,
             password: password ? bcrypt.hashSync(password) : user.password,
         })
         await user.save();
         const safeUser = {
             id: user.id,
-            firstName: user.firstName,
-            lastName: user.lastName,
+            username: user.username,
             email: user.email
         }
         return res.status(200).json({

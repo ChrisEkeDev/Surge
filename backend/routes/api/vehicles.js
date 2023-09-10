@@ -32,9 +32,10 @@ router.get('/', requireAuth, async(req, res) => {
 
 // Add Vehicle
 const validateVehicleCreate = [
+    check('name').exists({ checkFalsy: true }).withMessage('Please provide a name.'),
     check('make').exists({ checkFalsy: true }).withMessage('Please provide a make.'),
     check('model').exists({ checkFalsy: true }).withMessage('Please provide a model.'),
-    check('charger').exists({ checkFalsy: true }).withMessage('Please provide a charger type.'),
+    check('chargerId').exists({ checkFalsy: true }).withMessage('Please provide a charger type.'),
     check('year').exists({ checkFalsy: true }).withMessage('Please provide a year.'),
     handleValidationErrors
 ]
@@ -47,14 +48,20 @@ router.post('/', requireAuth, validateVehicleCreate, async(req, res) => {
             data: null
        })
     }
-    const { name, make, model, charger, year } = req.body;
-    const vehicle = await Vehicle.create({
+    const { name, make, model, chargerId, year } = req.body;
+    const newVehicle = await Vehicle.create({
         userId: auth.id,
         name,
-        chargerId: charger,
+        chargerId,
         make,
         model,
         year
+    })
+    const vehicle = await Vehicle.findByPk(newVehicle.id, {
+        include: [{
+            as: "charger",
+            model: Charger
+        }]
     })
     return res.status(201).json({
         status: 201,
@@ -65,9 +72,10 @@ router.post('/', requireAuth, validateVehicleCreate, async(req, res) => {
 
 // Edit Vehicle
 const validateVehicleEdit = [
+    check('name').optional().exists({ checkFalsy: true }).withMessage('Please provide a name.'),
     check('make').optional().exists({ checkFalsy: true }).withMessage('Please provide a make.'),
     check('model').optional().exists({ checkFalsy: true }).withMessage('Please provide a model.'),
-    check('charger').optional().exists({ checkFalsy: true }).withMessage('Please provide a charger type.'),
+    check('chargerId').optional().exists({ checkFalsy: true }).withMessage('Please provide a charger type.'),
     check('year').optional().exists({ checkFalsy: true }).withMessage('Please provide a year.'),
     handleValidationErrors
 ]
@@ -81,14 +89,14 @@ router.put('/:vehicleId', requireAuth, validateVehicleEdit, async(req, res) => {
        })
     }
     const { vehicleId } = req.params;
-    const { name, make, model, chargerid, year } = req.body;
+    const { name, make, model, chargerId, year } = req.body;
     const vehicle = await Vehicle.findByPk(vehicleId)
     if (auth.id === vehicle.userId) {
         await vehicle.set({
             name: name ? name : vehicle.name,
             make: make ? make : vehicle.make,
             model: model ? model : vehicle.model,
-            chargerId: chargerid ? chargerid : vehicle.chargerId,
+            chargerId: chargerId ? chargerId : vehicle.chargerId,
             year: year ? Number(year) : vehicle.year
         })
         await vehicle.save()
